@@ -52,6 +52,31 @@ final class AppKitTouchesView: NSView {
     }
 }
 
+struct TouchZoneManager {
+    var normalizedX: CGFloat
+    var normalizedY: CGFloat
+
+    enum Zone {
+        case left
+        case middle
+        case right
+        case outside
+    }
+
+    func determineZone() -> Zone {
+        guard normalizedY <= 0.15 else {
+            return .outside
+        }
+        if normalizedX < 0.4 {
+            return .left
+        } else if normalizedX >= 0.4 && normalizedX <= 0.6 {
+            return .middle
+        } else {
+            return .right
+        }
+    }
+}
+
 
 struct Touch: Identifiable {
     // `Identifiable` -> `id` is required for `ForEach` (see below).
@@ -96,23 +121,27 @@ struct TouchesView: NSViewRepresentable {
 
         func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>) {
             let mappedTouches = touches.map(Touch.init)
-            parent.touches = mappedTouches
+            DispatchQueue.main.async {
+                self.parent.touches = mappedTouches  // Update the touches on the main thread
+            }
             for touch in mappedTouches {
-                if touch.normalizedY <= 0.15 {
-                    let x = touch.normalizedX
-                    if x < 0.4 {
-                        simulateClick(type: .left)
-                        print("left")
-                    } else if x >= 0.4 && x <= 0.6 {
-                        simulateClick(type: .middle)
-                        print("middle")
-                    } else if x > 0.6 {
-                        simulateClick(type: .right)
-                        print("right")
-                    }
+                let zoneManager = TouchZoneManager(normalizedX: touch.normalizedX, normalizedY: touch.normalizedY)
+                switch zoneManager.determineZone() {
+                case .left:
+                    simulateClick(type: .left)
+                    print("Left click simulated")
+                case .middle:
+                    simulateClick(type: .middle)
+                    print("Middle click simulated")
+                case .right:
+                    simulateClick(type: .right)
+                    print("Right click simulated")
+                case .outside:
+                    print("Outside of designated zones")
                 }
             }
         }
+
 
         private func simulateClick(type: ClickType) {
             let currentMouseLocation = NSEvent.mouseLocation
@@ -170,22 +199,19 @@ struct TrackPadView: View {
     }
 
     private func regionColor(for touch: Touch) -> Color {
-        if touch.normalizedY <= 0.15 {
-            if touch.normalizedX < 0.4 {
-                return Color.blue  // Left region
-            } else if touch.normalizedX >= 0.4 && touch.normalizedX <= 0.6 {
-                return Color.white // Middle region
-            } else {
-                return Color.red   // Right region
-            }
-        } else {
-            return Color.green // Outside the top 15% region
+        let zoneManager = TouchZoneManager(normalizedX: touch.normalizedX, normalizedY: touch.normalizedY)
+        switch zoneManager.determineZone() {
+        case .left:
+            return .blue
+        case .middle:
+            return .white
+        case .right:
+            return .red
+        case .outside:
+            return .green
         }
     }
 }
-
-
-
 
 struct ContentView: View {
     var body: some View {
