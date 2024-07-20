@@ -112,7 +112,7 @@ struct TrackPadView: View {
 
                 ForEach(self.touches) { touch in
                     Circle()
-                        .foregroundColor(Color.green)
+                        .foregroundColor(touch.normalizedY >= 0.25 ? Color.green : Color.black) // This checks if the touch is in the top 1/4
                         .frame(width: self.touchViewSize, height: self.touchViewSize)
                         .offset(
                             x: proxy.size.width * touch.normalizedX - self.touchViewSize / 2.0,
@@ -123,7 +123,6 @@ struct TrackPadView: View {
         }
     }
 }
-
 struct ContentView: View {
     var body: some View {
         TrackPadView()
