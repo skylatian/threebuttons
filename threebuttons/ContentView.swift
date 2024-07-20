@@ -95,9 +95,20 @@ struct TouchesView: NSViewRepresentable {
         }
 
         func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>) {
-            parent.touches = touches.map(Touch.init)
+            let mappedTouches = touches.map(Touch.init)
+            parent.touches = mappedTouches
+            
+            // Print each touch's normalizedY to debug
+            //for touch in mappedTouches {
+            //    print("Touch \(touch.id) normalizedY: \(touch.normalizedY)")
+            //}
+
+            // Update topQuarterTouchesActive based on the current touches
+            TouchDataModel.shared.topQuarterTouchesActive = mappedTouches.contains { $0.normalizedY <= 0.25 }
         }
+
     }
+
 }
 
 struct TrackPadView: View {

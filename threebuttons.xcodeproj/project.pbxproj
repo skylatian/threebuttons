@@ -11,6 +11,7 @@
 		D4FBF7E32C4B4B4400022007 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FBF7E22C4B4B4400022007 /* ContentView.swift */; };
 		D4FBF7E52C4B4B4600022007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4FBF7E42C4B4B4600022007 /* Assets.xcassets */; };
 		D4FBF7E82C4B4B4600022007 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4FBF7E72C4B4B4600022007 /* Preview Assets.xcassets */; };
+		D4FBF7F42C4B521A00022007 /* TouchDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FBF7F32C4B521A00022007 /* TouchDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		D4FBF7E42C4B4B4600022007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D4FBF7E72C4B4B4600022007 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D4FBF7E92C4B4B4600022007 /* threebuttons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = threebuttons.entitlements; sourceTree = "<group>"; };
+		D4FBF7F32C4B521A00022007 /* TouchDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +54,9 @@
 		D4FBF7DF2C4B4B4400022007 /* threebuttons */ = {
 			isa = PBXGroup;
 			children = (
-				D4FBF7E02C4B4B4400022007 /* threebuttonsApp.swift */,
 				D4FBF7E22C4B4B4400022007 /* ContentView.swift */,
+				D4FBF7F32C4B521A00022007 /* TouchDataModel.swift */,
+				D4FBF7E02C4B4B4400022007 /* threebuttonsApp.swift */,
 				D4FBF7E42C4B4B4600022007 /* Assets.xcassets */,
 				D4FBF7E92C4B4B4600022007 /* threebuttons.entitlements */,
 				D4FBF7E62C4B4B4600022007 /* Preview Content */,
@@ -140,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4FBF7E32C4B4B4400022007 /* ContentView.swift in Sources */,
+				D4FBF7F42C4B521A00022007 /* TouchDataModel.swift in Sources */,
 				D4FBF7E12C4B4B4400022007 /* threebuttonsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
