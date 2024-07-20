@@ -10,18 +10,24 @@ import SwiftUI
 import AppKit
 
 protocol AppKitTouchesViewDelegate: AnyObject {
-    // Provides `.touching` touches only.
     func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>)
 }
+
+
+enum ClickType {
+    case left
+    case middle
+    case right
+}
+
+
 
 final class AppKitTouchesView: NSView {
     weak var delegate: AppKitTouchesViewDelegate?
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        // We're interested in `.indirect` touches only.
         allowedTouchTypes = [.indirect]
-        // We'd like to receive resting touches as well.
         wantsRestingTouches = true
     }
 
@@ -29,29 +35,23 @@ final class AppKitTouchesView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func handleTouches(with event: NSEvent) {
-        // Get all `.touching` touches only (includes `.began`, `.moved` & `.stationary`).
-        let touches = event.touches(matching: .touching, in: self)
-        // Forward them via delegate.
-        delegate?.touchesView(self, didUpdateTouchingTouches: touches)
-    }
-
     override func touchesBegan(with event: NSEvent) {
-        handleTouches(with: event)
-    }
-
-    override func touchesEnded(with event: NSEvent) {
-        handleTouches(with: event)
+        delegate?.touchesView(self, didUpdateTouchingTouches: event.touches(matching: .touching, in: self))
     }
 
     override func touchesMoved(with event: NSEvent) {
-        handleTouches(with: event)
+        delegate?.touchesView(self, didUpdateTouchingTouches: event.touches(matching: .touching, in: self))
+    }
+
+    override func touchesEnded(with event: NSEvent) {
+        delegate?.touchesView(self, didUpdateTouchingTouches: event.touches(matching: .touching, in: self))
     }
 
     override func touchesCancelled(with event: NSEvent) {
-        handleTouches(with: event)
+        delegate?.touchesView(self, didUpdateTouchingTouches: event.touches(matching: .touching, in: self))
     }
 }
+
 
 struct Touch: Identifiable {
     // `Identifiable` -> `id` is required for `ForEach` (see below).
@@ -88,32 +88,67 @@ struct TouchesView: NSViewRepresentable {
     }
 
     class Coordinator: NSObject, AppKitTouchesViewDelegate {
-        let parent: TouchesView
+        var parent: TouchesView
 
-        init(_ view: TouchesView) {
-            self.parent = view
+        init(_ parent: TouchesView) {
+            self.parent = parent
         }
 
         func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>) {
             let mappedTouches = touches.map(Touch.init)
             parent.touches = mappedTouches
-            
-            // Print each touch's normalizedY to debug
-            //for touch in mappedTouches {
-            //    print("Touch \(touch.id) normalizedY: \(touch.normalizedY)")
-            //}
-
-            // Update topQuarterTouchesActive based on the current touches
-            TouchDataModel.shared.topQuarterTouchesActive = mappedTouches.contains { $0.normalizedY <= 0.25 }
+            for touch in mappedTouches {
+                if touch.normalizedY <= 0.15 {
+                    let x = touch.normalizedX
+                    if x < 0.4 {
+                        simulateClick(type: .left)
+                        print("left")
+                    } else if x >= 0.4 && x <= 0.6 {
+                        simulateClick(type: .middle)
+                        print("middle")
+                    } else if x > 0.6 {
+                        simulateClick(type: .right)
+                        print("right")
+                    }
+                }
+            }
         }
+
+        private func simulateClick(type: ClickType) {
+            let currentMouseLocation = NSEvent.mouseLocation
+            let screenBounds = NSScreen.main?.frame.size ?? CGSize(width: 1440, height: 900) // Default screen size if screen detection fails
+            let correctedPosition = CGPoint(x: currentMouseLocation.x, y: screenBounds.height - currentMouseLocation.y) // Correct for flipped Y coordinate
+
+            let eventSource = CGEventSource(stateID: .combinedSessionState)
+            let location = CGEventTapLocation.cghidEventTap
+            var mouseType: CGEventType
+
+            switch type {
+            case .left:
+                mouseType = .leftMouseDown
+            case .middle:
+                mouseType = .otherMouseDown
+            case .right:
+                mouseType = .rightMouseDown
+            }
+
+            if let event = CGEvent(mouseEventSource: eventSource, mouseType: mouseType, mouseCursorPosition: correctedPosition, mouseButton: .left) {
+                event.post(tap: location)
+                // Add a mouse up event to complete the click
+                let mouseUpType: CGEventType = (type == .middle) ? .otherMouseUp : (type == .left ? .leftMouseUp : .rightMouseUp)
+                if let eventUp = CGEvent(mouseEventSource: eventSource, mouseType: mouseUpType, mouseCursorPosition: correctedPosition, mouseButton: .left) {
+                    eventUp.post(tap: location)
+                }
+            }
+        }
+
 
     }
 
-}
 
+}
 struct TrackPadView: View {
     private let touchViewSize: CGFloat = 20
-
     @State var touches: [Touch] = []
 
     var body: some View {
@@ -123,7 +158,7 @@ struct TrackPadView: View {
 
                 ForEach(self.touches) { touch in
                     Circle()
-                        .foregroundColor(touch.normalizedY >= 0.25 ? Color.green : Color.black) // This checks if the touch is in the top 1/4
+                        .foregroundColor(regionColor(for: touch))
                         .frame(width: self.touchViewSize, height: self.touchViewSize)
                         .offset(
                             x: proxy.size.width * touch.normalizedX - self.touchViewSize / 2.0,
@@ -133,7 +168,25 @@ struct TrackPadView: View {
             }
         }
     }
+
+    private func regionColor(for touch: Touch) -> Color {
+        if touch.normalizedY <= 0.15 {
+            if touch.normalizedX < 0.4 {
+                return Color.blue  // Left region
+            } else if touch.normalizedX >= 0.4 && touch.normalizedX <= 0.6 {
+                return Color.white // Middle region
+            } else {
+                return Color.red   // Right region
+            }
+        } else {
+            return Color.green // Outside the top 15% region
+        }
+    }
 }
+
+
+
+
 struct ContentView: View {
     var body: some View {
         TrackPadView()
