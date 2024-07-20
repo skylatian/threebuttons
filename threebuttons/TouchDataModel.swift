@@ -16,7 +16,7 @@ class TouchDataModel {
     var topQuarterTouchesActive = false {
         didSet {
             // You could trigger additional actions here if needed when the value changes.
-            print("Top Quarter Touches Active: \(topQuarterTouchesActive)")
+            //print("Top Quarter Touches Active: \(topQuarterTouchesActive)")
         }
     }
 }
