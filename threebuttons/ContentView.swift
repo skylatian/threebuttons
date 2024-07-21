@@ -3,24 +3,20 @@
 //  threebuttons
 //
 //  Created by skylatian on 7/19/24.
-//
-// https://stackoverflow.com/questions/61834910/swiftui-detect-finger-position-on-mac-trackpad
+//  https://stackoverflow.com/questions/61834910/swiftui-detect-finger-position-on-mac-trackpad
 
 import SwiftUI
 import AppKit
 
 protocol AppKitTouchesViewDelegate: AnyObject {
-    func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>)
+    func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>, pressure: CGFloat)
 }
-
 
 enum ClickType {
     case left
     case middle
     case right
 }
-
-
 
 final class AppKitTouchesView: NSView {
     weak var delegate: AppKitTouchesViewDelegate?
@@ -36,19 +32,34 @@ final class AppKitTouchesView: NSView {
     }
 
     override func touchesBegan(with event: NSEvent) {
-        delegate?.touchesView(self, didUpdateTouchingTouches: event.touches(matching: .touching, in: self))
+        processTouches(event: event)
     }
 
     override func touchesMoved(with event: NSEvent) {
-        delegate?.touchesView(self, didUpdateTouchingTouches: event.touches(matching: .touching, in: self))
+        processTouches(event: event)
     }
 
     override func touchesEnded(with event: NSEvent) {
-        delegate?.touchesView(self, didUpdateTouchingTouches: event.touches(matching: .touching, in: self))
+        processTouches(event: event)
     }
 
     override func touchesCancelled(with event: NSEvent) {
-        delegate?.touchesView(self, didUpdateTouchingTouches: event.touches(matching: .touching, in: self))
+        processTouches(event: event)
+    }
+
+    override func pressureChange(with event: NSEvent) {
+        super.pressureChange(with: event)
+        if event.type == .pressure {
+            let touches = event.touches(matching: .touching, in: self)
+            delegate?.touchesView(self, didUpdateTouchingTouches: touches, pressure: CGFloat(event.pressure))
+        }
+    }
+
+    private func processTouches(event: NSEvent) {
+        let touches = event.touches(matching: .touching, in: self)
+        // Only report pressure when it's meaningful
+        let pressure: CGFloat = CGFloat(event.type == .pressure ? event.pressure : 0.0)
+        delegate?.touchesView(self, didUpdateTouchingTouches: touches, pressure: pressure)
     }
 }
 
@@ -64,7 +75,7 @@ struct TouchZoneManager {
     }
 
     func determineZone() -> Zone {
-        guard normalizedY <= 0.15 else {
+        guard normalizedY >= 0.85 else {
             return .outside
         }
         if normalizedX < 0.4 {
@@ -77,7 +88,6 @@ struct TouchZoneManager {
     }
 }
 
-
 struct Touch: Identifiable {
     // `Identifiable` -> `id` is required for `ForEach` (see below).
     let id: Int
@@ -89,7 +99,7 @@ struct Touch: Identifiable {
     init(_ nsTouch: NSTouch) {
         self.normalizedX = nsTouch.normalizedPosition.x
         // `NSTouch.normalizedPosition.y` is flipped -> 0.0 means bottom. But the
-        // `Touch` structure is meants to be used with the SwiftUI -> flip it.
+        // `Touch` structure is meant to be used with the SwiftUI -> flip it.
         self.normalizedY = 1.0 - nsTouch.normalizedPosition.y
         self.id = nsTouch.hash
     }
@@ -119,29 +129,37 @@ struct TouchesView: NSViewRepresentable {
             self.parent = parent
         }
 
-        func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>) {
+        func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>, pressure: CGFloat) {
             let mappedTouches = touches.map(Touch.init)
             DispatchQueue.main.async {
                 self.parent.touches = mappedTouches  // Update the touches on the main thread
             }
-            for touch in mappedTouches {
-                let zoneManager = TouchZoneManager(normalizedX: touch.normalizedX, normalizedY: touch.normalizedY)
-                switch zoneManager.determineZone() {
-                case .left:
-                    simulateClick(type: .left)
-                    print("Left click simulated")
-                case .middle:
-                    simulateClick(type: .middle)
-                    print("Middle click simulated")
-                case .right:
-                    simulateClick(type: .right)
-                    print("Right click simulated")
-                case .outside:
-                    print("Outside of designated zones")
+
+            // Define your pressure threshold here
+            let pressureThreshold: CGFloat = 0.5  // Example threshold, adjust based on your needs
+            
+            print(pressure)
+            print(touches)
+
+            if pressure > pressureThreshold {
+                for touch in mappedTouches {
+                    let zoneManager = TouchZoneManager(normalizedX: touch.normalizedX, normalizedY: touch.normalizedY)
+                    switch zoneManager.determineZone() {
+                    case .left:
+                        simulateClick(type: .left)
+                        print("Left click simulated")
+                    case .middle:
+                        simulateClick(type: .middle)
+                        print("Middle click simulated")
+                    case .right:
+                        simulateClick(type: .right)
+                        print("Right click simulated")
+                    case .outside:
+                        print("Outside of designated zones")
+                    }
                 }
             }
         }
-
 
         private func simulateClick(type: ClickType) {
             let currentMouseLocation = NSEvent.mouseLocation
@@ -170,12 +188,9 @@ struct TouchesView: NSViewRepresentable {
                 }
             }
         }
-
-
     }
-
-
 }
+
 struct TrackPadView: View {
     private let touchViewSize: CGFloat = 20
     @State var touches: [Touch] = []
