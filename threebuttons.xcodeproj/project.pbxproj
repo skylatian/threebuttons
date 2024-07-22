@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D40068C72C4DE4F300528767 /* trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40068C62C4DE4F300528767 /* trackers.swift */; };
+		D40068C92C4DE60D00528767 /* fingerpos_temp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40068C82C4DE60D00528767 /* fingerpos_temp.swift */; };
+		D40068CB2C4DE6DD00528767 /* display.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40068CA2C4DE6DD00528767 /* display.swift */; };
 		D4FBF7E12C4B4B4400022007 /* threebuttonsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FBF7E02C4B4B4400022007 /* threebuttonsApp.swift */; };
 		D4FBF7E32C4B4B4400022007 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FBF7E22C4B4B4400022007 /* ContentView.swift */; };
 		D4FBF7E52C4B4B4600022007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4FBF7E42C4B4B4600022007 /* Assets.xcassets */; };
@@ -15,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D40068C62C4DE4F300528767 /* trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trackers.swift; sourceTree = "<group>"; };
+		D40068C82C4DE60D00528767 /* fingerpos_temp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fingerpos_temp.swift; sourceTree = "<group>"; };
+		D40068CA2C4DE6DD00528767 /* display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = display.swift; sourceTree = "<group>"; };
 		D4FBF7DD2C4B4B4400022007 /* threebuttons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = threebuttons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4FBF7E02C4B4B4400022007 /* threebuttonsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = threebuttonsApp.swift; sourceTree = "<group>"; };
 		D4FBF7E22C4B4B4400022007 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +61,9 @@
 			isa = PBXGroup;
 			children = (
 				D4FBF7E22C4B4B4400022007 /* ContentView.swift */,
+				D40068C62C4DE4F300528767 /* trackers.swift */,
+				D40068C82C4DE60D00528767 /* fingerpos_temp.swift */,
+				D40068CA2C4DE6DD00528767 /* display.swift */,
 				D4FBF7F32C4B521A00022007 /* TouchDataModel.swift */,
 				D4FBF7E02C4B4B4400022007 /* threebuttonsApp.swift */,
 				D4FBF7E42C4B4B4600022007 /* Assets.xcassets */,
@@ -142,7 +151,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D40068C72C4DE4F300528767 /* trackers.swift in Sources */,
 				D4FBF7E32C4B4B4400022007 /* ContentView.swift in Sources */,
+				D40068CB2C4DE6DD00528767 /* display.swift in Sources */,
+				D40068C92C4DE60D00528767 /* fingerpos_temp.swift in Sources */,
 				D4FBF7F42C4B521A00022007 /* TouchDataModel.swift in Sources */,
 				D4FBF7E12C4B4B4400022007 /* threebuttonsApp.swift in Sources */,
 			);
