@@ -8,11 +8,11 @@ protocol AppKitTouchesHandlerDelegate: AnyObject {
     func TouchInputManager(_ view: AppKitTouchesHandler, didUpdateTouchingTouches touches: Set<NSTouch>)
 }
 
-enum ClickType {
-    case left
-    case middle
-    case right
-}
+//enum ClickType {
+  //  case left
+// case middle
+//    case right
+//}
 
 final class AppKitTouchesHandler: NSView {
     weak var delegate: AppKitTouchesHandlerDelegate?
@@ -72,7 +72,7 @@ struct TouchZoneManager {
             return .right
         }
     }
-}
+} // determines where a touch was performed
 
 struct Touch: Identifiable {
     
@@ -123,54 +123,10 @@ struct TouchInputManager: NSViewRepresentable {
             DispatchQueue.main.async {
                 self.parent.touches = mappedTouches  // Update the touches on the main thread
             }
-            print(touches)
-
-            for touch in mappedTouches {
-                let zoneManager = TouchZoneManager(normalizedX: touch.normalizedX, normalizedY: touch.normalizedY)
-                switch zoneManager.determineZone() {
-                case .left:
-                    simulateClick(type: .left)
-                    print("Left click simulated")
-                case .middle:
-                    simulateClick(type: .middle)
-                    print("Middle click simulated")
-                case .right:
-                    simulateClick(type: .right)
-                    print("Right click simulated")
-                case .outside:
-                    print("Outside of designated zones")
-                 
-                }
-            }
+            // print(touches)
         }
 
-        private func simulateClick(type: ClickType) {
-            let currentMouseLocation = NSEvent.mouseLocation
-            let screenBounds = NSScreen.main?.frame.size ?? CGSize(width: 1440, height: 900) // Default screen size if screen detection fails
-            let correctedPosition = CGPoint(x: currentMouseLocation.x, y: screenBounds.height - currentMouseLocation.y) // Correct for flipped Y coordinate
 
-            let eventSource = CGEventSource(stateID: .combinedSessionState)
-            let location = CGEventTapLocation.cghidEventTap
-            var mouseType: CGEventType
-
-            switch type {
-            case .left:
-                mouseType = .leftMouseDown
-            case .middle:
-                mouseType = .otherMouseDown
-            case .right:
-                mouseType = .rightMouseDown
-            }
-
-            if let event = CGEvent(mouseEventSource: eventSource, mouseType: mouseType, mouseCursorPosition: correctedPosition, mouseButton: .left) {
-                event.post(tap: location)
-                // Add a mouse up event to complete the click
-                let mouseUpType: CGEventType = (type == .middle) ? .otherMouseUp : (type == .left ? .leftMouseUp : .rightMouseUp)
-                if let eventUp = CGEvent(mouseEventSource: eventSource, mouseType: mouseUpType, mouseCursorPosition: correctedPosition, mouseButton: .left) {
-                    eventUp.post(tap: location)
-                }
-            }
-        }
     }
 }
 

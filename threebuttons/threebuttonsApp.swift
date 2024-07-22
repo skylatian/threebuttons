@@ -18,11 +18,19 @@ struct MyApp: App {
     }
 }
 
+
+
+
 class AppDelegate: NSObject, NSApplicationDelegate {
     var eventTap: CFMachPort?
+    var clickDetector: EventTapClickDetector?
+    var HIDManager: TrackpadMonitor?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupEventTap()
+        clickDetector = EventTapClickDetector()
+        HIDManager = TrackpadMonitor()
+    
         print("test")
         // Test if topQuarterTouchesActive is ever true
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) { // Check after 5 seconds

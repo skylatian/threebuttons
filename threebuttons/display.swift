@@ -19,7 +19,7 @@ struct TrackPadView: View {
         
         ZStack {
             GeometryReader { proxy in
-                TouchesView(touches: self.$touches)
+                TouchInputManager(touches: self.$touches)
 
                 ForEach(self.touches) { touch in
                     
