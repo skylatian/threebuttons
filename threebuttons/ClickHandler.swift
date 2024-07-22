@@ -11,41 +11,27 @@ import Foundation
 import CoreGraphics
 
 class ClickHandler {
-    static func handle(clickType: ClickType, location: CGPoint) {
-        //print("\(clickType.rawValue) detected at \(location)")
-        // Implement any additional handling based on click type or location
+    // Function to simulate a mouse click
+    
+    
+    static func simulateClick(type: ClickType, at position: CGPoint) {
+        print("Simulating \(type.rawValue) at \(position)")
+        // Here you'd call another function to physically simulate the click
+    }
+
+    // Handle detected clicks by determining which zone the click should be simulated in
+    static func handle(clickType: ClickType, location: CGPoint, touches: [Touch]) {
+        let cursorPosition = CursorPosition.shared.getPosition()
+        print("\(clickType.rawValue) detected at \(location), cursor at \(cursorPosition), zones:)")
         
-        // you'll  want to modify this a lot
-        //
-        // it needs to handle all the clicks, yes, but it also
-        // needs to determine which click to perform. that'll
-        // come from the function that detects fingers on the
-        // trackpad - you'll probably want to mod that to
-        // output a true/false value for left/mid/right clicks
-        // based on if there's a finger present on the trackpad
-        // there.
+        // Example of how to use the new TouchZoneManager functionality
+        func updateTouchZones(with touches: [Touch]) {
+            print("ZONNNEEE")
+            let zoneManager = TouchZoneManager(touches: touches)
+            let zoneFlags = zoneManager.isFingerInZone()
+            print("Fingers in zones - Left: \(zoneFlags.left), Middle: \(zoneFlags.middle), Right: \(zoneFlags.right)")
         
-        // something like from the callback)
-        // if click(type: anybutton, direction: down) detected and finger_present_in_middle_zone = true
-        //      simulate middle click down
-        // if click(type: anybutton, direction: UP) detected and finger_present_in_middle_zone = true
-        //      simulate middle click UP
-        // etc
-        
-        switch clickType {
-        case .leftDown:
-            print("Left Click Down Detected")
-        case .rightDown:
-            print("Right Click Down Detected")
-        case .middleDown:
-            print("Middle Click Down Detected")
-        case .leftUp:
-            print("Left Click Up Detected")
-        case .rightUp:
-            print("Right Click Up Detected")
-        case .middleUp:
-            print("Middle Click Up Detected")
         }
     }
-}
 
+}

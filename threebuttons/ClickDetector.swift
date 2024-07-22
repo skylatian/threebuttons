@@ -48,6 +48,7 @@ class EventTapClickDetector {
             let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
             CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
             CGEvent.tapEnable(tap: eventTap, enable: true)
+            print("set up event tap")
         } else {
             print("Failed to create event tap")
         }
@@ -63,30 +64,30 @@ class EventTapClickDetector {
 
 private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     let clickDetector = Unmanaged<EventTapClickDetector>.fromOpaque(refcon!).takeUnretainedValue()
-    let clickType: ClickType?
+    let ClickType: ClickType?
 
     switch type {
     case .leftMouseDown:
-        clickType = .leftDown
+        ClickType = .leftDown
     case .rightMouseDown:
-        clickType = .rightDown
+        ClickType = .rightDown
     case .otherMouseDown:
-        clickType = .middleDown
+        ClickType = .middleDown
     case .leftMouseUp:
-        clickType = .leftUp
+        ClickType = .leftUp
     case .rightMouseUp:
-        clickType = .rightUp
+        ClickType = .rightUp
     case .otherMouseUp:
-        clickType = .middleUp
+        ClickType = .middleUp
     default:
         return Unmanaged.passRetained(event)
     }
 
-    if let clickType = clickType {
+    if let ClickType = ClickType {
         let location = event.location
         DispatchQueue.main.async {
-            clickDetector.onClick?(clickType, location) // callback
-            //print("\(clickType.rawValue) at \(event.location)")
+            clickDetector.onClick?(ClickType, location) // callback
+            //print("\(ClickType.rawValue) at \(event.location)")
         }
     }
     

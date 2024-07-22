@@ -45,11 +45,55 @@ final class AppKitTouchesHandler: NSView {
 
     private func processTouches(event: NSEvent) {
         let touches = event.touches(matching: .touching, in: self)
+        //print("touches: \(touches)")
         delegate?.TouchInputManager(self, didUpdateTouchingTouches: touches)
     }
 }
 
 struct TouchZoneManager {
+    var touches: [Touch]
+
+    enum Zone {
+        case left, middle, right, outside
+    }
+
+    // New method to check the presence of fingers in zones
+    func isFingerInZone() -> (left: Bool, middle: Bool, right: Bool) {
+        var isLeft = false
+        var isMiddle = false
+        var isRight = false
+
+        for touch in touches {
+            switch determineZone(normalizedX: touch.normalizedX, normalizedY: touch.normalizedY) {
+            case .left:
+                isLeft = true
+            case .middle:
+                isMiddle = true
+            case .right:
+                isRight = true
+            case .outside:
+                continue
+            }
+        }
+        return (isLeft, isMiddle, isRight)
+    }
+
+    // Updated method to determine the zone based on coordinates
+    private func determineZone(normalizedX: CGFloat, normalizedY: CGFloat) -> Zone {
+        guard normalizedY >= 0.85 else {
+            return .outside
+        }
+        if normalizedX < 0.4 {
+            return .left
+        } else if normalizedX >= 0.4 && normalizedX <= 0.6 {
+            return .middle
+        } else {
+            return .right
+        }
+    }
+} // determines where a touch was performed
+
+struct TouchZoneManagerOLD {
     var normalizedX: CGFloat
     var normalizedY: CGFloat
 
@@ -65,14 +109,19 @@ struct TouchZoneManager {
             return .outside
         }
         if normalizedX < 0.4 {
+            //print("left")
             return .left
         } else if normalizedX >= 0.4 && normalizedX <= 0.6 {
+            //print("middle")
             return .middle
+            
         } else {
+            //print("right")
             return .right
+            
         }
     }
-} // determines where a touch was performed
+}
 
 struct Touch: Identifiable {
     
@@ -91,6 +140,7 @@ struct Touch: Identifiable {
         // `Touch` structure is meant to be used with the SwiftUI -> flip it.
         self.normalizedY = 1.0 - nsTouch.normalizedPosition.y
         self.id = nsTouch.hash
+        // print(self.normalizedX,self.normalizedY)
     }
 } // represents a single touch event on the trackpad
 
