@@ -86,7 +86,7 @@ private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event
         let location = event.location
         DispatchQueue.main.async {
             clickDetector.onClick?(clickType, location) // callback
-            print("\(clickType.rawValue) at \(event.location)")
+            //print("\(clickType.rawValue) at \(event.location)")
         }
     }
     

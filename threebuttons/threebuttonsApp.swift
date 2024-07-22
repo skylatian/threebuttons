@@ -20,12 +20,17 @@ struct MyApp: App {
 
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var eventTap: CFMachPort?
     var clickDetector: EventTapClickDetector?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        clickDetector = EventTapClickDetector()
-    
-        print("test")
-        }
+        setupClickDetector()
     }
+
+    private func setupClickDetector() {
+        clickDetector = EventTapClickDetector()
+        clickDetector?.onClick = { clickType, location in
+            ClickHandler.handle(clickType: clickType, location: location)
+        }
+        print("Event Tap Click Detector setup complete.")
+    }
+}
