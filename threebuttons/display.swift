@@ -55,3 +55,13 @@ struct TrackPadView: View {
     }
 }
 
+struct ContentView: View {
+    var body: some View {
+        TrackPadView()
+            .background(Color.gray)
+            .aspectRatio(1.6, contentMode: .fit)
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
