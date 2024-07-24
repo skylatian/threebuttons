@@ -30,11 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AppKitTouchesHandlerDelegate
 
     private func setupClickDetector() {
         clickDetector = EventTapClickDetector()
-        clickDetector?.onClick = { [weak self] clickType, location in
-            guard let self = self else { return }
-            ClickHandler.handle(clickType: clickType, location: location, touches: self.currentTouches)
-            // print("callback?")
-        }
+
         print("Event Tap Click Detector setup complete.")
     }
 
@@ -49,6 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AppKitTouchesHandlerDelegate
         print("map touches")
         self.currentTouches = touches.map(Touch.init) // Convert NSTouch to Touch and update
     }
+    
     
     
 }

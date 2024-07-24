@@ -12,7 +12,7 @@
 		D40068CB2C4DE6DD00528767 /* display.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40068CA2C4DE6DD00528767 /* display.swift */; };
 		D410FCBE2C4DF1330089EFB3 /* ClickDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D410FCBD2C4DF1330089EFB3 /* ClickDetector.swift */; };
 		D41177D92C4DFEF8000ABEBF /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41175262C4DFED6000ABEBF /* MultitouchSupport.framework */; };
-		D41177DD2C4E05F0000ABEBF /* ClickHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41177DC2C4E05F0000ABEBF /* ClickHandler.swift */; };
+		D484F2A82C51A79B003E6392 /* ClickEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D484F2A72C51A79B003E6392 /* ClickEventHandler.swift */; };
 		D4FBF7E12C4B4B4400022007 /* threebuttonsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FBF7E02C4B4B4400022007 /* threebuttonsApp.swift */; };
 		D4FBF7E52C4B4B4600022007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4FBF7E42C4B4B4600022007 /* Assets.xcassets */; };
 		D4FBF7E82C4B4B4600022007 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4FBF7E72C4B4B4600022007 /* Preview Assets.xcassets */; };
@@ -1650,7 +1650,7 @@
 		D41177D52C4DFED6000ABEBF /* XQuery.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = XQuery.framework; sourceTree = "<group>"; };
 		D41177D62C4DFED6000ABEBF /* yara.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = yara.framework; sourceTree = "<group>"; };
 		D41177D72C4DFED6000ABEBF /* ZhuGeSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZhuGeSupport.framework; sourceTree = "<group>"; };
-		D41177DC2C4E05F0000ABEBF /* ClickHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickHandler.swift; sourceTree = "<group>"; };
+		D484F2A72C51A79B003E6392 /* ClickEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickEventHandler.swift; sourceTree = "<group>"; };
 		D4FBF7DD2C4B4B4400022007 /* threebuttons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = threebuttons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4FBF7E02C4B4B4400022007 /* threebuttonsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = threebuttonsApp.swift; sourceTree = "<group>"; };
 		D4FBF7E42C4B4B4600022007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -3357,10 +3357,10 @@
 		D4FBF7DF2C4B4B4400022007 /* threebuttons */ = {
 			isa = PBXGroup;
 			children = (
+				D484F2A72C51A79B003E6392 /* ClickEventHandler.swift */,
 				D40068C62C4DE4F300528767 /* trackers.swift */,
 				D40068C82C4DE60D00528767 /* fingerpos_temp.swift */,
 				D40068CA2C4DE6DD00528767 /* display.swift */,
-				D41177DC2C4E05F0000ABEBF /* ClickHandler.swift */,
 				D4FBF7E02C4B4B4400022007 /* threebuttonsApp.swift */,
 				D410FCBD2C4DF1330089EFB3 /* ClickDetector.swift */,
 				D4FBF7E42C4B4B4600022007 /* Assets.xcassets */,
@@ -3451,9 +3451,9 @@
 				D40068C72C4DE4F300528767 /* trackers.swift in Sources */,
 				D410FCBE2C4DF1330089EFB3 /* ClickDetector.swift in Sources */,
 				D40068CB2C4DE6DD00528767 /* display.swift in Sources */,
-				D41177DD2C4E05F0000ABEBF /* ClickHandler.swift in Sources */,
 				D40068C92C4DE60D00528767 /* fingerpos_temp.swift in Sources */,
 				D4FBF7E12C4B4B4400022007 /* threebuttonsApp.swift in Sources */,
+				D484F2A82C51A79B003E6392 /* ClickEventHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
