@@ -33,7 +33,13 @@ enum Zone {
     }
 
 class zoneStatus: ObservableObject {
-    @Published var inLeft: Bool = false
+    
+    static let shared = zoneStatus() // now accessible as zoneStatus.shared
+    
+    @Published var inLeft: Bool = false // defaults 
     @Published var inMid: Bool = false
     @Published var inRight: Bool = false
+    
+    private init() { }
+    
 }

@@ -73,7 +73,6 @@ struct Touch: Identifiable {
 struct TouchesView: NSViewRepresentable {
     // Up to date list of touching touches.
     @Binding var touches: [Touch]
-    @EnvironmentObject var sharedZoneStatus: zoneStatus  // Access the shared instance
 
     func updateNSView(_ nsView: AppKitTouchesView, context: Context) {
     }
@@ -85,41 +84,39 @@ struct TouchesView: NSViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self, zoneStatus: sharedZoneStatus)
+        Coordinator(self)
     }
 
     class Coordinator: NSObject, AppKitTouchesViewDelegate {
         let parent: TouchesView
-        var zoneStatus: zoneStatus
 
-        init(_ view: TouchesView, zoneStatus: zoneStatus) {
+        init(_ view: TouchesView) {
             self.parent = view
-            self.zoneStatus = zoneStatus
         }
 
         func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>) {
             DispatchQueue.main.async {  // Ensure UI updates are on the main thread
                 self.parent.touches = touches.map(Touch.init)
                 self.updateZoneStatus(for: self.parent.touches)
-                print(self.zoneStatus.inLeft, self.zoneStatus.inMid, self.zoneStatus.inRight) // works!!
+                print(zoneStatus.shared.inLeft, zoneStatus.shared.inMid, zoneStatus.shared.inRight) // works!!
             }
         }
 
         private func updateZoneStatus(for touches: [Touch]) {
             
-            zoneStatus.inLeft = false
-            zoneStatus.inMid = false
-            zoneStatus.inRight = false
+            zoneStatus.shared.inLeft = false
+            zoneStatus.shared.inMid = false
+            zoneStatus.shared.inRight = false
 
             for touch in touches {
                 let result = ZoneLogic.determineZone(for: touch)
                 switch result.zone {
                 case .left:
-                    zoneStatus.inLeft = true
+                    zoneStatus.shared.inLeft = true
                 case .middle:
-                    zoneStatus.inMid = true
+                    zoneStatus.shared.inMid = true
                 case .right:
-                    zoneStatus.inRight = true
+                    zoneStatus.shared.inRight = true
                 case .outside:
                     break  // Do nothing for outside
                 }
@@ -131,9 +128,6 @@ struct TouchesView: NSViewRepresentable {
 }
 
 struct TrackPadView: View {
-
-    // @Binding var variableName: Bool
-    @EnvironmentObject var zStatus: zoneStatus // allow zoneStatus to be accessed?
 
     private let touchViewSize: CGFloat = 20
 
