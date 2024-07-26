@@ -103,6 +103,41 @@ struct TrackPadView: View {
     private let touchViewSize: CGFloat = 20
 
     @State var touches: [Touch] = []
+    
+    enum Zone {
+        case left
+        case middle
+        case right
+        case outside
+    }
+
+    // A function to determine the color of a touch based on its position.
+    private func colorForTouch(_ touch: Touch) -> Color {
+        return determineZone(touch: touch)
+    }
+    
+    func determineZone(touch: Touch) -> Color {
+        
+        
+        let normalizedX = touch.normalizedX
+        let normalizedY = touch.normalizedY
+        
+        guard normalizedY >= 0.85 else {
+            return .green
+        }
+        if normalizedX < 0.4 { // left
+            print("left")
+            return .blue
+            
+        } else if normalizedX >= 0.4 && normalizedX <= 0.6 { // middle
+            print("middle")
+            return .white
+            
+        } else { // right?
+            print("right")
+            return .red
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -111,7 +146,7 @@ struct TrackPadView: View {
 
                 ForEach(self.touches) { touch in
                     Circle()
-                        .foregroundColor(Color.green)
+                        .foregroundColor(colorForTouch(touch)) // Use the new function here.
                         .frame(width: self.touchViewSize, height: self.touchViewSize)
                         .offset(
                             x: proxy.size.width * touch.normalizedX - self.touchViewSize / 2.0,
@@ -122,6 +157,7 @@ struct TrackPadView: View {
         }
     }
 }
+
 
 struct ContentView: View {
     var body: some View {
