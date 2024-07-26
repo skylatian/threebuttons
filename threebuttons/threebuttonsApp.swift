@@ -8,6 +8,7 @@ import SwiftUI
 import Foundation
 
 @main
+
 struct MyApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 

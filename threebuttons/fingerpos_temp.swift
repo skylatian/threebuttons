@@ -59,35 +59,42 @@ struct TouchZoneManager {
 
     // New method to check the presence of fingers in zones
     func isFingerInZone() -> (left: Bool, middle: Bool, right: Bool) {
-        print("isfingerinzone") // never runs!!
-        var isLeft = false
-        var isMiddle = false
-        var isRight = false
+        // print("isfingerinzone") // this runs!
+        var isLeftZone = false
+        var isMiddleZone = false
+        var isRightZone = false
+        
+        
+        
+        print("zoning...")
 
         for touch in touches {
+            print("touching...")
+            print(touch.normalizedX, touch.normalizedY)
             switch determineZone(normalizedX: touch.normalizedX, normalizedY: touch.normalizedY) {
             case .left:
-                isLeft = true
+                isLeftZone = true
             case .middle:
-                isMiddle = true
+                isMiddleZone = true
             case .right:
-                isRight = true
+                isRightZone = true
             case .outside:
                 continue
             }
         }
         // Update the global zone status tracker
-        ZoneStatusTracker.shared.isLeftZoneActive = isLeft
-        ZoneStatusTracker.shared.isMiddleZoneActive = isMiddle
-        ZoneStatusTracker.shared.isRightZoneActive = isRight
+        //ZoneStatusTracker.shared.isLeftZoneActive = isLeftZone
+        //ZoneStatusTracker.shared.isMiddleZoneActive = isMiddleZone
+        //ZoneStatusTracker.shared.isRightZoneActive = isRightZone
+        print("global update")
+        print(isLeftZone, isMiddleZone, isRightZone)
         
-        
-        return (isLeft, isMiddle, isRight)
+        return (isLeftZone, isMiddleZone, isRightZone)
     }
 
     // Updated method to determine the zone based on coordinates
     func determineZone(normalizedX: CGFloat, normalizedY: CGFloat) -> Zone {
-        print("determineZone") // oh shit! this never runs!
+        // print("determineZone") // woohoo! this runs now!
         guard normalizedY >= 0.85 else {
             return .outside
         }
@@ -151,16 +158,17 @@ struct TouchInputManager: NSViewRepresentable {
             DispatchQueue.main.async {
                 self.parent.touches = mappedTouches  // Update the touches on the main thread
             }
-            // print(touches)
+            
         }
 
-
     }
+    
 }
 
 // Singleton to track the status of each zone
 class ZoneStatusTracker {
     static let shared = ZoneStatusTracker()
+    
 
     private init() {}
 

@@ -88,7 +88,10 @@ private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event
     if let clickType = clickType {
         let location = event.location
         DispatchQueue.main.async {
+            var touches: [Touch] = []
             clickDetector.clickEventHandler.handle(type: clickType, location: location)
+            clickDetector.clickEventHandler.checkForSpecialZones(in: touches)
+            
         }
     }
     

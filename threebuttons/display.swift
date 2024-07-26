@@ -12,15 +12,15 @@ import AppKit
 struct TrackPadView: View {
     private let touchViewSize: CGFloat = 20
     @State var touches: [Touch] = []
-
+    
     var body: some View {
         
-        // 
+        //
         
         ZStack {
             GeometryReader { proxy in
                 TouchInputManager(touches: self.$touches)
-
+                
                 ForEach(self.touches) { touch in
                     
                     // creates the circles
@@ -36,24 +36,37 @@ struct TrackPadView: View {
             }
         }
     }
-
+    
     private func regionColor(for touch: Touch) -> Color {
         
         // sets the color for each dot
         
         let zoneManager = TouchZoneManager(touches: touches)
+        
         switch zoneManager.determineZone(normalizedX: touch.normalizedX, normalizedY: touch.normalizedY) {
+            
+            
+            
         case .left:
+            //          ZoneStatusTracker.shared.isLeftZoneActive = true
             return .blue
         case .middle:
+            //          ZoneStatusTracker.shared.isMiddleZoneActive = true
             return .white
         case .right:
+            //          ZoneStatusTracker.shared.isRightZoneActive = true
             return .red
         case .outside:
+            //            ZoneStatusTracker.shared.isLeftZoneActive = false
+            //            ZoneStatusTracker.shared.isMiddleZoneActive = false
+            //            ZoneStatusTracker.shared.isRightZoneActive = false
             return .green
         }
     }
 }
+
+
+
 
 struct ContentView: View {
     var body: some View {
