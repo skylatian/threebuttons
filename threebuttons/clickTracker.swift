@@ -66,8 +66,8 @@ class EventTapClickDetector {
 private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     let clickDetector = Unmanaged<EventTapClickDetector>.fromOpaque(refcon!).takeUnretainedValue()
     let clickType: ClickType?
-
-    switch type {
+    
+        switch type {
     case .leftMouseUp, .rightMouseUp, .otherMouseUp:
         clickType = .mainUp
         
