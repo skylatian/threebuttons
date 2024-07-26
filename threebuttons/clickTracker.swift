@@ -9,14 +9,8 @@ import Cocoa
 import CoreGraphics
 
 enum ClickType: String {
-    case leftDown = "Left Mouse Down"
-    case middleDown = "Middle Mouse Down"
-    case rightDown = "Right Mouse Down"
-    case leftUp = "Left Mouse Up"
-    case middleUp = "Middle Mouse Up"
-    case rightUp = "Right Mouse Up"
-    case mainUp = "up"
-    case mainDown = "down"
+    case clickUp = "up"
+    case clickDown = "down"
 }
 
 class EventTapClickDetector {
@@ -69,10 +63,10 @@ private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event
     
         switch type {
     case .leftMouseUp, .rightMouseUp, .otherMouseUp:
-        clickType = .mainUp
+        clickType = .clickUp
         
-    case .leftMouseDown, .rightMouseDown, .otherMouseDown:
-        clickType = .mainDown
+        case .leftMouseDown, .rightMouseDown, .otherMouseDown:
+        clickType = .clickDown
         
     default:
         return Unmanaged.passRetained(event)
