@@ -59,6 +59,7 @@ struct TouchZoneManager {
 
     // New method to check the presence of fingers in zones
     func isFingerInZone() -> (left: Bool, middle: Bool, right: Bool) {
+        print("isfingerinzone") // never runs!!
         var isLeft = false
         var isMiddle = false
         var isRight = false
@@ -75,11 +76,18 @@ struct TouchZoneManager {
                 continue
             }
         }
+        // Update the global zone status tracker
+        ZoneStatusTracker.shared.isLeftZoneActive = isLeft
+        ZoneStatusTracker.shared.isMiddleZoneActive = isMiddle
+        ZoneStatusTracker.shared.isRightZoneActive = isRight
+        
+        
         return (isLeft, isMiddle, isRight)
     }
 
     // Updated method to determine the zone based on coordinates
-    private func determineZone(normalizedX: CGFloat, normalizedY: CGFloat) -> Zone {
+    func determineZone(normalizedX: CGFloat, normalizedY: CGFloat) -> Zone {
+        print("determineZone") // oh shit! this never runs!
         guard normalizedY >= 0.85 else {
             return .outside
         }
@@ -92,36 +100,6 @@ struct TouchZoneManager {
         }
     }
 } // determines where a touch was performed
-
-struct TouchZoneManagerOLD {
-    var normalizedX: CGFloat
-    var normalizedY: CGFloat
-
-    enum Zone {
-        case left
-        case middle
-        case right
-        case outside
-    }
-
-    func determineZone() -> Zone {
-        guard normalizedY >= 0.85 else {
-            return .outside
-        }
-        if normalizedX < 0.4 {
-            //print("left")
-            return .left
-        } else if normalizedX >= 0.4 && normalizedX <= 0.6 {
-            //print("middle")
-            return .middle
-            
-        } else {
-            //print("right")
-            return .right
-            
-        }
-    }
-}
 
 struct Touch: Identifiable {
     
@@ -180,3 +158,13 @@ struct TouchInputManager: NSViewRepresentable {
     }
 }
 
+// Singleton to track the status of each zone
+class ZoneStatusTracker {
+    static let shared = ZoneStatusTracker()
+
+    private init() {}
+
+    var isLeftZoneActive: Bool = false
+    var isMiddleZoneActive: Bool = false
+    var isRightZoneActive: Bool = false
+}

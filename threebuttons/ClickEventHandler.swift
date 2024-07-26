@@ -10,9 +10,13 @@ import Cocoa
 
 class ClickEventHandler {
     func handle(type: ClickType, location: CGPoint) {
+        print("handle") // this does run
+        // updateTouchZones()
+        
         switch type {
         case .leftDown, .leftUp:
             print("\(type.rawValue) at \(location)")
+            print(ZoneStatusTracker.shared.isLeftZoneActive)
         case .middleDown, .middleUp:
             print("\(type.rawValue) at \(location)")
         case .rightDown, .rightUp:
@@ -26,9 +30,9 @@ class ClickEventHandler {
 
 // Example of how to use the new TouchZoneManager functionality
 func updateTouchZones(with touches: [Touch]) {
-    print("ZONNNEEE")
+    print("ZONNNEEE") // this never runs
     let zoneManager = TouchZoneManager(touches: touches)
-    let zoneFlags = zoneManager.isFingerInZone()
+    let zoneFlags = zoneManager.isFingerInZone()    
     print("Fingers in zones - Left: \(zoneFlags.left), Middle: \(zoneFlags.middle), Right: \(zoneFlags.right)")
 
 }

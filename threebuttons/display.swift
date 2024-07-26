@@ -41,8 +41,8 @@ struct TrackPadView: View {
         
         // sets the color for each dot
         
-        let zoneManager = TouchZoneManagerOLD(normalizedX: touch.normalizedX, normalizedY: touch.normalizedY)
-        switch zoneManager.determineZone() {
+        let zoneManager = TouchZoneManager(touches: touches)
+        switch zoneManager.determineZone(normalizedX: touch.normalizedX, normalizedY: touch.normalizedY) {
         case .left:
             return .blue
         case .middle:
