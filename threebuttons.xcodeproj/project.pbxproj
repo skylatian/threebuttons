@@ -1649,7 +1649,6 @@
 		D45AFF292C5417E00015AEEA /* zoneLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zoneLogic.swift; sourceTree = "<group>"; };
 		D47118142C54287A00A0375B /* clickTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clickTracker.swift; sourceTree = "<group>"; };
 		D47118172C54289200A0375B /* clickHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = clickHandler.swift; path = ../../../../../../.Trash/clickHandler.swift; sourceTree = "<group>"; };
-		D471181A2C5428F900A0375B /* clickHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clickHandler.swift; sourceTree = "<group>"; };
 		D4FBF7DD2C4B4B4400022007 /* threebuttons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = threebuttons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4FBF7E02C4B4B4400022007 /* threebuttonsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = threebuttonsApp.swift; sourceTree = "<group>"; };
 		D4FBF7E42C4B4B4600022007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -3336,15 +3335,6 @@
 			path = ../../../../../../../System/Library/PrivateFrameworks;
 			sourceTree = "<group>";
 		};
-		D47118192C5428EF00A0375B /* clicks */ = {
-			isa = PBXGroup;
-			children = (
-				D47118142C54287A00A0375B /* clickTracker.swift */,
-				D471181A2C5428F900A0375B /* clickHandler.swift */,
-			);
-			path = clicks;
-			sourceTree = "<group>";
-		};
 		D4FBF7D42C4B4B4400022007 = {
 			isa = PBXGroup;
 			children = (
@@ -3365,8 +3355,8 @@
 		D4FBF7DF2C4B4B4400022007 /* threebuttons */ = {
 			isa = PBXGroup;
 			children = (
-				D47118192C5428EF00A0375B /* clicks */,
 				D45AFF292C5417E00015AEEA /* zoneLogic.swift */,
+				D47118142C54287A00A0375B /* clickTracker.swift */,
 				D45AFF252C540A500015AEEA /* ContentView.swift */,
 				D47118172C54289200A0375B /* clickHandler.swift */,
 				D4FBF7E02C4B4B4400022007 /* threebuttonsApp.swift */,

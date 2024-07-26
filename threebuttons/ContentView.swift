@@ -98,7 +98,7 @@ struct TouchesView: NSViewRepresentable {
             DispatchQueue.main.async {  // Ensure UI updates are on the main thread
                 self.parent.touches = touches.map(Touch.init)
                 self.updateZoneStatus(for: self.parent.touches)
-                print(zoneStatus.shared.inLeft, zoneStatus.shared.inMid, zoneStatus.shared.inRight) // works!!
+                //print(zoneStatus.shared.inLeft, zoneStatus.shared.inMid, zoneStatus.shared.inRight) // works!!
             }
         }
 

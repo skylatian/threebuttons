@@ -22,10 +22,21 @@ struct MyApp: App {
 
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    var clickDetector: EventTapClickDetector?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        setupClickDetector()
         print("nyoom")
         
+    }
+    
+    private func setupClickDetector() {
+        clickDetector = EventTapClickDetector()
+        clickDetector?.onClick = { clickType, location in
+            ClickHandler.handle(clickType: clickType, location: location)
+        }
+        print("Event Tap Click Detector setup complete.")
     }
 
 }
