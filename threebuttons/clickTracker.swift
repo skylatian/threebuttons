@@ -15,6 +15,8 @@ enum ClickType: String {
     case leftUp = "Left Mouse Up"
     case middleUp = "Middle Mouse Up"
     case rightUp = "Right Mouse Up"
+    case mainUp = "up"
+    case mainDown = "down"
 }
 
 class EventTapClickDetector {
@@ -66,18 +68,12 @@ private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event
     let clickType: ClickType?
 
     switch type {
-    case .leftMouseDown:
-        clickType = .leftDown
-    case .rightMouseDown:
-        clickType = .rightDown
-    case .otherMouseDown:
-        clickType = .middleDown
-    case .leftMouseUp:
-        clickType = .leftUp
-    case .rightMouseUp:
-        clickType = .rightUp
-    case .otherMouseUp:
-        clickType = .middleUp
+    case .leftMouseUp, .rightMouseUp, .otherMouseUp:
+        clickType = .mainUp
+        
+    case .leftMouseDown, .rightMouseDown, .otherMouseDown:
+        clickType = .mainDown
+        
     default:
         return Unmanaged.passRetained(event)
     }
