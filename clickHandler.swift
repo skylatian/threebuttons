@@ -12,7 +12,8 @@ import CoreGraphics
 
 class ClickHandler {
     static func handle(clickType: ClickType, location: CGPoint) {
-        //print("\(clickType.rawValue) detected at \(location)")
+        // print("\(clickType.rawValue) detected at \(location)")
+        
         
         switch clickType {
             
@@ -20,38 +21,37 @@ class ClickHandler {
             //print("click up")
             if zoneStatus.shared.inLeft
             {
-                print("simulate left click up")
+                //print("simulate left click up")
+                simulateClick(button: .left, direction: false) // false is up, true is down
+                
             }
             if zoneStatus.shared.inMid
             {
-                print("simulate middle click up")
+                //print("simulate middle click up")
+                simulateClick(button: .center, direction: false)
             }
             if zoneStatus.shared.inRight
             {
-                print("simulate right click up")
+                //print("simulate right click up")
+                simulateClick(button: .right, direction: false)
             }
-            else
-            {
-                print("ignore click up event")
-            }
-            
+
         case .clickDown:
             //print("click down")
             if zoneStatus.shared.inLeft
             {
-                print("simulate left click down")
+                //print("simulate left click down")
+                simulateClick(button: .left, direction: true) // false is up, true is down
             }
             if zoneStatus.shared.inMid
             {
-                print("simulate middle click down")
+                //print("simulate middle click down")
+                simulateClick(button: .center, direction: true)
             }
             if zoneStatus.shared.inRight
             {
-                print("simulate right click down")
-            }
-            else
-            {
-                print("ignore click down event")
+                //print("simulate right click down")
+                simulateClick(button: .right, direction: true)
             }
             
             
