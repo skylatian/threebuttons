@@ -109,7 +109,7 @@ struct TouchesView: NSViewRepresentable {
             zoneStatus.shared.inRight = false
 
             for touch in touches {
-                print("determinezone for touch in touches")
+                // print("determinezone for touch in touches")
                 let result = ZoneLogic.determineZone(for: touch)
                 switch result.zone {
                 case .left:
