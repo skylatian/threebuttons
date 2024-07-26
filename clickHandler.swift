@@ -11,13 +11,13 @@ import Foundation
 import CoreGraphics
 
 class ClickHandler {
-    static func handle(clickType: ClickType, location: CGPoint) {
-        // print("\(clickType.rawValue) detected at \(location)")
+    static func handle(clickType: Bool, location: CGPoint) {
+        //print("\(clickType) detected at \(location)")
         
         
         switch clickType {
             
-        case .clickUp:
+        case false:
             //print("click up")
             if zoneStatus.shared.inLeft
             {
@@ -36,7 +36,7 @@ class ClickHandler {
                 simulateClick(button: .right, direction: false)
             }
 
-        case .clickDown:
+        case true:
             //print("click down")
             if zoneStatus.shared.inLeft
             {

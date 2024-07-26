@@ -104,17 +104,12 @@ struct TouchesView: NSViewRepresentable {
 
         private func updateZoneStatus(for touches: [Touch]) {
             
-            
-            //let currentMouseLocation = NSEvent.mouseLocation
-            //let screenBounds = NSScreen.main?.frame.size ?? CGSize(width: 1440, height: 900) // Default screen size if screen detection fails
-            //let correctedPosition = CGPoint(x: currentMouseLocation.x, y: screenBounds.height - currentMouseLocation.y) // Correct for flipped Y coordinate
-            //print(correctedPosition)
-            
             zoneStatus.shared.inLeft = false
             zoneStatus.shared.inMid = false
             zoneStatus.shared.inRight = false
 
             for touch in touches {
+                print("determinezone for touch in touches")
                 let result = ZoneLogic.determineZone(for: touch)
                 switch result.zone {
                 case .left:

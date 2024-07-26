@@ -8,14 +8,10 @@
 import Cocoa
 import CoreGraphics
 
-enum ClickType: String {
-    case clickUp = "up"
-    case clickDown = "down"
-}
-
 class EventTapClickDetector {
     var eventTap: CFMachPort?
-    var onClick: ((ClickType, CGPoint) -> Void)?
+    var runLoopSource: CFRunLoopSource?
+    var onClick: ((Bool, CGPoint) -> Void)?
 
     init() {
         setupEventTap()
@@ -41,7 +37,7 @@ class EventTapClickDetector {
                                      userInfo: Unmanaged.passUnretained(self).toOpaque())
 
         if let eventTap = eventTap {
-            let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
+            runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
             CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
             CGEvent.tapEnable(tap: eventTap, enable: true)
         } else {
@@ -52,36 +48,38 @@ class EventTapClickDetector {
     private func stopEventTap() {
         if let eventTap = eventTap {
             CGEvent.tapEnable(tap: eventTap, enable: false)
-            CFRunLoopRemoveSource(CFRunLoopGetCurrent(), CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0), .commonModes)
+            if let runLoopSource = runLoopSource {
+                CFRunLoopRemoveSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
+            }
+            self.eventTap = nil
+            self.runLoopSource = nil
         }
     }
 }
 
 private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     let clickDetector = Unmanaged<EventTapClickDetector>.fromOpaque(refcon!).takeUnretainedValue()
-    let clickType: ClickType?
+    let clickType: Bool
     
-        switch type {
+    //print("callback! \(type)")
+    
+    switch type {
     case .leftMouseUp, .rightMouseUp, .otherMouseUp:
-        clickType = .clickUp
+        clickType = false
+        print("up callback")
         
-        case .leftMouseDown, .rightMouseDown, .otherMouseDown:
-        clickType = .clickDown
+    case .leftMouseDown, .rightMouseDown, .otherMouseDown:
+        clickType = true
+        print("down callback")
         
     default:
         return Unmanaged.passRetained(event)
     }
 
-    if let clickType = clickType {
-        let location = event.location
-        DispatchQueue.main.async {
-            clickDetector.onClick?(clickType, location) // callback
-            //print("\(clickType.rawValue) at \(event.location)")
-        }
+    let location = event.location
+    DispatchQueue.main.async {
+        clickDetector.onClick?(clickType, location) // callback
     }
     
     return Unmanaged.passRetained(event)
 }
-
-// Initialize the detector
-//let detector = EventTapClickDetector()

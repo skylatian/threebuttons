@@ -27,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupClickDetector()
+        
         print("nyoom")
         
     }
@@ -35,6 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         clickDetector = EventTapClickDetector()
         clickDetector?.onClick = { clickType, location in
             ClickHandler.handle(clickType: clickType, location: location)
+            //print("\(clickType.rawValue) at \(location)")
         }
         print("Event Tap Click Detector setup complete.")
     }
