@@ -12,10 +12,13 @@ import Foundation
 
 struct MyApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    @StateObject var sharedZoneStatus = zoneStatus() // initialze the shared zonestatus
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+            .environmentObject(zoneStatus()) // required to access zoneStatus app-wide
         }
     }
 }
@@ -25,6 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         print("nyoom")
+        
     }
 
 }

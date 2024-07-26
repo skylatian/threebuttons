@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AppKit
+import Combine // idk
 
 protocol AppKitTouchesViewDelegate: AnyObject {
     // Provides `.touching` touches only.
@@ -72,6 +73,7 @@ struct Touch: Identifiable {
 struct TouchesView: NSViewRepresentable {
     // Up to date list of touching touches.
     @Binding var touches: [Touch]
+    @EnvironmentObject var sharedZoneStatus: zoneStatus  // Access the shared instance
 
     func updateNSView(_ nsView: AppKitTouchesView, context: Context) {
     }
@@ -83,61 +85,59 @@ struct TouchesView: NSViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(self, zoneStatus: sharedZoneStatus)
     }
 
     class Coordinator: NSObject, AppKitTouchesViewDelegate {
         let parent: TouchesView
+        var zoneStatus: zoneStatus
 
-        init(_ view: TouchesView) {
+        init(_ view: TouchesView, zoneStatus: zoneStatus) {
             self.parent = view
+            self.zoneStatus = zoneStatus
         }
 
         func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>) {
-            parent.touches = touches.map(Touch.init)
+            DispatchQueue.main.async {  // Ensure UI updates are on the main thread
+                self.parent.touches = touches.map(Touch.init)
+                self.updateZoneStatus(for: self.parent.touches)
+                print(self.zoneStatus.inLeft, self.zoneStatus.inMid, self.zoneStatus.inRight) // works!!
+            }
+        }
+
+        private func updateZoneStatus(for touches: [Touch]) {
+            
+            zoneStatus.inLeft = false
+            zoneStatus.inMid = false
+            zoneStatus.inRight = false
+
+            for touch in touches {
+                let result = ZoneLogic.determineZone(for: touch)
+                switch result.zone {
+                case .left:
+                    zoneStatus.inLeft = true
+                case .middle:
+                    zoneStatus.inMid = true
+                case .right:
+                    zoneStatus.inRight = true
+                case .outside:
+                    break  // Do nothing for outside
+                }
+            }
+            
         }
     }
+
 }
 
 struct TrackPadView: View {
+
+    // @Binding var variableName: Bool
+    @EnvironmentObject var zStatus: zoneStatus // allow zoneStatus to be accessed?
+
     private let touchViewSize: CGFloat = 20
 
     @State var touches: [Touch] = []
-    
-    enum Zone {
-        case left
-        case middle
-        case right
-        case outside
-    }
-
-    // A function to determine the color of a touch based on its position.
-    private func colorForTouch(_ touch: Touch) -> Color {
-        return determineZone(touch: touch)
-    }
-    
-    func determineZone(touch: Touch) -> Color {
-        
-        
-        let normalizedX = touch.normalizedX
-        let normalizedY = touch.normalizedY
-        
-        guard normalizedY >= 0.85 else {
-            return .green
-        }
-        if normalizedX < 0.4 { // left
-            print("left")
-            return .blue
-            
-        } else if normalizedX >= 0.4 && normalizedX <= 0.6 { // middle
-            print("middle")
-            return .white
-            
-        } else { // right?
-            print("right")
-            return .red
-        }
-    }
 
     var body: some View {
         ZStack {
@@ -146,7 +146,7 @@ struct TrackPadView: View {
 
                 ForEach(self.touches) { touch in
                     Circle()
-                        .foregroundColor(colorForTouch(touch)) // Use the new function here.
+                        .foregroundColor(ZoneLogic.determineZone(for: touch).color) // Extract color from the tuple
                         .frame(width: self.touchViewSize, height: self.touchViewSize)
                         .offset(
                             x: proxy.size.width * touch.normalizedX - self.touchViewSize / 2.0,
@@ -157,7 +157,6 @@ struct TrackPadView: View {
         }
     }
 }
-
 
 struct ContentView: View {
     var body: some View {
