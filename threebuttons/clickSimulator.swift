@@ -25,11 +25,6 @@ func simulateClick(button: CGMouseButton, direction: Bool) {
     
     mouseClick(point: correctedPosition, mouseButton: button, dir: dir)
     
-    // let source = CGEventSource(stateID: .combinedSessionState)
-    
-    // let currentMouseLocation = NSEvent.mouseLocation
-    // let location = CGEventTapLocation.cghidEventTap
-    
     }
 
 func mouseClick(point: CGPoint, mouseButton: CGMouseButton, dir: Bool) {

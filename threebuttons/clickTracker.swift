@@ -66,11 +66,11 @@ private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event
     switch type {
     case .leftMouseUp, .rightMouseUp, .otherMouseUp:
         clickType = false
-        print("up callback")
+        //print("up callback")
         
     case .leftMouseDown, .rightMouseDown, .otherMouseDown:
         clickType = true
-        print("down callback")
+        //print("down callback")
         
     default:
         return Unmanaged.passRetained(event)

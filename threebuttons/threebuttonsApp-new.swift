@@ -15,12 +15,8 @@ struct MyApp: App {
     
     var body: some Scene {
         WindowGroup("TrackPad Window") {
-            TrackPadContentView()
+            TrackPadView()
         }
-        WindowGroup("Interactive Canvas Window") {
-            InteractiveCanvasContentView()
-        }
-        .windowResizabilityIfPossible()
 
     }
 }
@@ -36,14 +32,13 @@ extension Scene {
 }
 
 
-
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     var clickDetector: EventTapClickDetector?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        setupClickDetector()
         
+        setupClickDetector()
         print("nyoom")
         
     }
@@ -52,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         clickDetector = EventTapClickDetector()
         clickDetector?.onClick = { clickType, location in
             ClickHandler.handle(clickType: clickType, location: location)
-            //print("\(clickType.rawValue) at \(location)")
+            //print("\(clickType) at \(location)")
         }
         print("Event Tap Click Detector setup complete.")
     }

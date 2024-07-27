@@ -8,80 +8,48 @@
 import SwiftUI
 import AppKit
 import Combine
-
-// Include all the classes and structs you need from the first ContentView here.
-// This includes AppKitTouchesView, Touch, TouchesView, and so forth.
-
-struct TrackPadContentView: View {
-    var body: some View {
-        TrackPadView()
-            .background(Color.gray)
-            .aspectRatio(1.6, contentMode: .fit)
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-
+import OpenMultitouchSupport
 
 protocol AppKitTouchesViewDelegate: AnyObject {
-    // Provides `.touching` touches only.
-    func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>)
+    func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: [Touch])
 }
 
 final class AppKitTouchesView: NSView {
     weak var delegate: AppKitTouchesViewDelegate?
+    private var cancellables = Set<AnyCancellable>()
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        // We're interested in `.indirect` touches only.
-        allowedTouchTypes = [.indirect]
-        // We'd like to receive resting touches as well.
-        wantsRestingTouches = true
+        let manager = OMSManager.shared
+        manager.touchDataPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] touchData in
+                guard let strongSelf = self else { return }
+                let touches = touchData.map { Touch(omsTouchData: $0) }
+                strongSelf.delegate?.touchesView(strongSelf, didUpdateTouchingTouches: touches)
+            }
+            .store(in: &cancellables)
+        manager.startListening()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func handleTouches(with event: NSEvent) {
-        // Get all `.touching` touches only (includes `.began`, `.moved` & `.stationary`).
-        let touches = event.touches(matching: .touching, in: self)
-        // Forward them via delegate.
-        delegate?.touchesView(self, didUpdateTouchingTouches: touches)
-    }
-
-    override func touchesBegan(with event: NSEvent) {
-        handleTouches(with: event)
-    }
-
-    override func touchesEnded(with event: NSEvent) {
-        handleTouches(with: event)
-    }
-
-    override func touchesMoved(with event: NSEvent) {
-        handleTouches(with: event)
-    }
-
-    override func touchesCancelled(with event: NSEvent) {
-        handleTouches(with: event)
+    deinit {
+        OMSManager.shared.stopListening()
     }
 }
 
 struct Touch: Identifiable {
-    // `Identifiable` -> `id` is required for `ForEach` (see below).
     let id: Int
-    // Normalized touch X position on a device (0.0 - 1.0).
     let normalizedX: CGFloat
-    // Normalized touch Y position on a device (0.0 - 1.0).
     let normalizedY: CGFloat
 
-    init(_ nsTouch: NSTouch) {
-        self.normalizedX = nsTouch.normalizedPosition.x
-        // `NSTouch.normalizedPosition.y` is flipped -> 0.0 means bottom. But the
-        // `Touch` structure is meants to be used with the SwiftUI -> flip it.
-        self.normalizedY = 1.0 - nsTouch.normalizedPosition.y
-        self.id = nsTouch.hash
+    init(omsTouchData: OMSTouchData) {
+        self.normalizedX = CGFloat(omsTouchData.position.x)
+        self.normalizedY = CGFloat(1.0 - omsTouchData.position.y)  // Flip Y coordinate
+        self.id = Int(omsTouchData.id)  // Cast from Int32 to Int
     }
 }
 
@@ -109,11 +77,10 @@ struct TouchesView: NSViewRepresentable {
             self.parent = view
         }
 
-        func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: Set<NSTouch>) {
+        func touchesView(_ view: AppKitTouchesView, didUpdateTouchingTouches touches: [Touch]) {
             DispatchQueue.main.async {  // Ensure UI updates are on the main thread
-                self.parent.touches = touches.map(Touch.init)
+                self.parent.touches = touches
                 self.updateZoneStatus(for: self.parent.touches)
-                //print(zoneStatus.shared.inLeft, zoneStatus.shared.inMid, zoneStatus.shared.inRight) // works!!
             }
         }
 

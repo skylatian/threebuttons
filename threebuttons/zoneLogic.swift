@@ -16,10 +16,13 @@ struct ZoneLogic {
             return (.outside, .green)
         }
         if normalizedX < 0.4 {
+            //print("finger in left zone")
             return (.left, .blue)
         } else if normalizedX >= 0.4 && normalizedX <= 0.6 {
+            //print("finger in middle zone")
             return (.middle, .white)
         } else {
+            //print("finger in right zone")
             return (.right, .red)
         }
     }
