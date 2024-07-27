@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,9 @@
 		D47118162C54287A00A0375B /* clickTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47118142C54287A00A0375B /* clickTracker.swift */; };
 		D471181E2C54314A00A0375B /* clickHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D471181D2C54314A00A0375B /* clickHandler.swift */; };
 		D47118202C5435E900A0375B /* clickSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D471181F2C5435E900A0375B /* clickSimulator.swift */; };
+		D4A34A602C549059004734BA /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D4A34A5F2C549059004734BA /* OpenMultitouchSupport */; };
+		D4A34A652C549088004734BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A34A622C549088004734BA /* ContentView.swift */; };
+		D4A34A662C549088004734BA /* ContentViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A34A632C549088004734BA /* ContentViewState.swift */; };
 		D4FBF7E12C4B4B4400022007 /* threebuttonsApp-new.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FBF7E02C4B4B4400022007 /* threebuttonsApp-new.swift */; };
 		D4FBF7E52C4B4B4600022007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4FBF7E42C4B4B4600022007 /* Assets.xcassets */; };
 		D4FBF7E82C4B4B4600022007 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4FBF7E72C4B4B4600022007 /* Preview Assets.xcassets */; };
@@ -1651,6 +1654,8 @@
 		D47118142C54287A00A0375B /* clickTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clickTracker.swift; sourceTree = "<group>"; };
 		D471181D2C54314A00A0375B /* clickHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = clickHandler.swift; path = ../clickHandler.swift; sourceTree = "<group>"; };
 		D471181F2C5435E900A0375B /* clickSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clickSimulator.swift; sourceTree = "<group>"; };
+		D4A34A622C549088004734BA /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D4A34A632C549088004734BA /* ContentViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewState.swift; sourceTree = "<group>"; };
 		D4FBF7DD2C4B4B4400022007 /* threebuttons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = threebuttons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4FBF7E02C4B4B4400022007 /* threebuttonsApp-new.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "threebuttonsApp-new.swift"; sourceTree = "<group>"; };
 		D4FBF7E42C4B4B4600022007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1663,6 +1668,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A34A602C549059004734BA /* OpenMultitouchSupport in Frameworks */,
 				D41177D92C4DFEF8000ABEBF /* MultitouchSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3363,6 +3369,8 @@
 				D47118142C54287A00A0375B /* clickTracker.swift */,
 				D45AFF252C540A500015AEEA /* ContentView-new.swift */,
 				D4FBF7E02C4B4B4400022007 /* threebuttonsApp-new.swift */,
+				D4A34A622C549088004734BA /* ContentView.swift */,
+				D4A34A632C549088004734BA /* ContentViewState.swift */,
 				D4FBF7E42C4B4B4600022007 /* Assets.xcassets */,
 				D4FBF7E92C4B4B4600022007 /* threebuttons.entitlements */,
 				D4FBF7E62C4B4B4600022007 /* Preview Content */,
@@ -3394,6 +3402,9 @@
 			dependencies = (
 			);
 			name = threebuttons;
+			packageProductDependencies = (
+				D4A34A5F2C549059004734BA /* OpenMultitouchSupport */,
+			);
 			productName = threebuttons;
 			productReference = D4FBF7DD2C4B4B4400022007 /* threebuttons.app */;
 			productType = "com.apple.product-type.application";
@@ -3422,6 +3433,9 @@
 				Base,
 			);
 			mainGroup = D4FBF7D42C4B4B4400022007;
+			packageReferences = (
+				D4A34A5E2C549059004734BA /* XCLocalSwiftPackageReference "OpenMultitouchSupport-main" */,
+			);
 			productRefGroup = D4FBF7DE2C4B4B4400022007 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3450,9 +3464,11 @@
 			files = (
 				D45AFF2A2C5417E00015AEEA /* zoneLogic.swift in Sources */,
 				D45AFF262C540A500015AEEA /* ContentView-new.swift in Sources */,
+				D4A34A652C549088004734BA /* ContentView.swift in Sources */,
 				D471181E2C54314A00A0375B /* clickHandler.swift in Sources */,
 				D47118202C5435E900A0375B /* clickSimulator.swift in Sources */,
 				D4FBF7E12C4B4B4400022007 /* threebuttonsApp-new.swift in Sources */,
+				D4A34A662C549088004734BA /* ContentViewState.swift in Sources */,
 				D47118162C54287A00A0375B /* clickTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3662,6 +3678,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		D4A34A5E2C549059004734BA /* XCLocalSwiftPackageReference "OpenMultitouchSupport-main" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "OpenMultitouchSupport-main";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D4A34A5F2C549059004734BA /* OpenMultitouchSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OpenMultitouchSupport;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D4FBF7D52C4B4B4400022007 /* Project object */;
 }

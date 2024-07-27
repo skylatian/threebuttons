@@ -9,16 +9,32 @@ import SwiftUI
 import Foundation
 
 @main
-
 struct MyApp: App {
+    
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
+    
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        WindowGroup("TrackPad Window") {
+            TrackPadContentView()
         }
+        WindowGroup("Interactive Canvas Window") {
+            InteractiveCanvasContentView()
+        }
+        .windowResizabilityIfPossible()
+
     }
 }
+
+
+extension Scene {
+    func windowResizabilityIfPossible() -> some Scene {
+        if #available(macOS 13.0, *) {
+            return self.windowResizability(.contentSize)
+        }
+        return self
+    }
+}
+
 
 
 class AppDelegate: NSObject, NSApplicationDelegate {

@@ -7,7 +7,22 @@
 
 import SwiftUI
 import AppKit
-import Combine // idk
+import Combine
+
+// Include all the classes and structs you need from the first ContentView here.
+// This includes AppKitTouchesView, Touch, TouchesView, and so forth.
+
+struct TrackPadContentView: View {
+    var body: some View {
+        TrackPadView()
+            .background(Color.gray)
+            .aspectRatio(1.6, contentMode: .fit)
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+
 
 protocol AppKitTouchesViewDelegate: AnyObject {
     // Provides `.touching` touches only.
