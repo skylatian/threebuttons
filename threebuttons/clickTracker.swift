@@ -60,32 +60,29 @@ class EventTapClickDetector {
 
 private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     let clickDetector = Unmanaged<EventTapClickDetector>.fromOpaque(refcon!).takeUnretainedValue()
-    let clickType: Bool
-    
-    print(zoneStatus.shared.inLeft, zoneStatus.shared.inMid, zoneStatus.shared.inRight)
-    
-    // Check if the click should be suppressed
+
+    // Determine if the event is a mouse down or up
+    let isMouseDown = type == .leftMouseDown || type == .rightMouseDown || type == .otherMouseDown
+    let isMouseUp = type == .leftMouseUp || type == .rightMouseUp || type == .otherMouseUp
+
+    // Check conditions to suppress the original event
     if !(zoneStatus.shared.inLeft || zoneStatus.shared.inMid || zoneStatus.shared.inRight) {
-        print("suppress")
-        return nil // Suppress the event
+        // Suppress original mouse event
+        return nil
     }
 
-    switch type {
-    case .leftMouseUp, .rightMouseUp, .otherMouseUp:
-        clickType = false
-
-    case .leftMouseDown, .rightMouseDown, .otherMouseDown:
-        clickType = true
-
-    default:
+    // Handle mouse down or up events
+    if isMouseDown || isMouseUp {
+        DispatchQueue.main.async {
+            // Execute callback for allowed clicks
+            clickDetector.onClick?(isMouseDown, event.location)
+        }
+        // Allow the original event to proceed
         return Unmanaged.passRetained(event)
     }
 
-    let location = event.location
-    DispatchQueue.main.async {
-        clickDetector.onClick?(clickType, location) // callback
-    }
-    
+    // For other types of events, just pass them through
     return Unmanaged.passRetained(event)
 }
+
 

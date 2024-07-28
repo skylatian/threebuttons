@@ -1,49 +1,62 @@
-//
-//  clickSimulator.swift
-//  threebuttons
-//
-//  Created by skylatian on 7/26/24.
-//
-
-import Foundation
-import SwiftUI
-
 import Cocoa
 
-func simulateClick(button: CGMouseButton, direction: Bool) {
-
-    let button = button
-    let dir = direction
+class MouseButtonState {
+    static let shared = MouseButtonState()
+    private var actionStates: [CGMouseButton: Bool] = [:]  // Tracks if last action was a press (true) or release (false)
     
-    // print(button.rawValue, dir)
-    
-    let currentMouseLocation = NSEvent.mouseLocation
-    let screenBounds = NSScreen.main?.frame.size ?? CGSize(width: 1440, height: 900) // Default screen size if screen detection fails
-    let correctedPosition = CGPoint(x: currentMouseLocation.x, y: screenBounds.height - currentMouseLocation.y) // Correct for flipped Y coordinate
-    //print(correctedPosition)
-
-    
-    mouseClick(point: correctedPosition, mouseButton: button, dir: dir)
-    
+    func shouldExecute(button: CGMouseButton, wantsToPress: Bool) -> Bool {
+        let lastActionWasPress = actionStates[button] ?? false
+        let shouldExecute = lastActionWasPress != wantsToPress
+        if shouldExecute {
+            actionStates[button] = wantsToPress
+        }
+        return shouldExecute
     }
-
-func mouseClick(point: CGPoint, mouseButton: CGMouseButton, dir: Bool) {
-    
-    // https://gist.github.com/vorce/04e660526473beecdc3029cf7c5a761c
-    
-    switch dir
-    {
-    case true:
-        // down
-        print("down")
-        //CGEvent(mouseEventSource: nil, mouseType: CGEventType.leftMouseDown, mouseCursorPosition: point, mouseButton: mouseButton)?.post(tap: CGEventTapLocation.cghidEventTap)
-        
-    case false:
-        // up
-        print("up")
-        //CGEvent(mouseEventSource: nil, mouseType: CGEventType.leftMouseUp, mouseCursorPosition: point, mouseButton: mouseButton)?.post(tap: CGEventTapLocation.cghidEventTap)
-    }
-   
 }
-// Example usage
-// simulateMiddleMouseClick(at: CGPoint(x: 100, y: 100))
+
+func simulateClick(button: CGMouseButton, direction: Bool) {
+    if MouseButtonState.shared.shouldExecute(button: button, wantsToPress: direction) {
+        performClick(button: button, press: direction)
+        //print(button, direction)
+    }
+}
+
+func performClick(button: CGMouseButton, press: Bool) {
+    let eventType = press ? button.pressType : button.releaseType
+    let currentMouseLocation = NSEvent.mouseLocation
+    let screenBounds = NSScreen.main?.frame.size ?? CGSize(width: 1440, height: 900)
+    let correctedPosition = CGPoint(x: currentMouseLocation.x, y: screenBounds.height - currentMouseLocation.y)
+
+    if let event = CGEvent(mouseEventSource: nil, mouseType: eventType, mouseCursorPosition: correctedPosition, mouseButton: button) {
+        event.post(tap: .cghidEventTap)
+        usleep(100000) // delay for 100 milliseconds
+        print("Event posted: \(eventType)")
+    } else {
+        print("Failed to create CGEvent")
+    }
+}
+
+
+extension CGMouseButton {
+    var pressType: CGEventType {
+        switch self {
+        case .left:
+            return .leftMouseDown
+        case .right:
+            return .rightMouseDown
+        case .center:
+            return .otherMouseDown
+        }
+    }
+
+    var releaseType: CGEventType {
+        switch self {
+        case .left:
+            return .leftMouseUp
+        case .right:
+            return .rightMouseUp
+        case .center:
+            return .otherMouseUp
+        }
+    }
+}
