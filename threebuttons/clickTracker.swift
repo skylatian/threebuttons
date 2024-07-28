@@ -34,7 +34,8 @@ class EventTapClickDetector {
                                      options: .defaultTap,
                                      eventsOfInterest: CGEventMask(eventMask),
                                      callback: myEventTapCallback,
-                                     userInfo: Unmanaged.passUnretained(self).toOpaque())
+                                     userInfo: Unmanaged.passUnretained(self).toOpaque()
+        )
 
         if let eventTap = eventTap {
             runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
@@ -61,17 +62,21 @@ private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event
     let clickDetector = Unmanaged<EventTapClickDetector>.fromOpaque(refcon!).takeUnretainedValue()
     let clickType: Bool
     
-    //print("callback! \(type)")
+    print(zoneStatus.shared.inLeft, zoneStatus.shared.inMid, zoneStatus.shared.inRight)
     
+    // Check if the click should be suppressed
+    if !(zoneStatus.shared.inLeft || zoneStatus.shared.inMid || zoneStatus.shared.inRight) {
+        print("suppress")
+        return nil // Suppress the event
+    }
+
     switch type {
     case .leftMouseUp, .rightMouseUp, .otherMouseUp:
         clickType = false
-        //print("up callback")
-        
+
     case .leftMouseDown, .rightMouseDown, .otherMouseDown:
         clickType = true
-        //print("down callback")
-        
+
     default:
         return Unmanaged.passRetained(event)
     }
@@ -83,3 +88,4 @@ private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event
     
     return Unmanaged.passRetained(event)
 }
+
