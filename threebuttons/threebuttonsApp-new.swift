@@ -1,55 +1,43 @@
+
 //
 //  threebuttonsApp.swift
 //  threebuttons
 //
-//  Created by skylatian on 7/26/24 from https://gist.github.com/zrzka/224a18517649247a5867fbe65dbd5ae0 / https://stackoverflow.com/questions/61834910/swiftui-detect-finger-position-on-mac-trackpad
+//  Created by Skylatian on 7/19/24.
 //
-
 import SwiftUI
 import Foundation
 
 @main
 struct MyApp: App {
-    
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
+
     var body: some Scene {
-        WindowGroup("TrackPad Window") {
-            TrackPadView()
+        WindowGroup {
+            ContentView()
         }
-
     }
 }
-
-
-extension Scene {
-    func windowResizabilityIfPossible() -> some Scene {
-        if #available(macOS 13.0, *) {
-            return self.windowResizability(.contentSize)
-        }
-        return self
-    }
-}
-
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
     var clickDetector: EventTapClickDetector?
+    var currentTouches: [Touch] = [] // Store current touch data here
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        
         setupClickDetector()
-        print("nyoom")
-        
+        //setupTouchHandling()
     }
     
-    private func setupClickDetector() {
-        clickDetector = EventTapClickDetector()
-        clickDetector?.onClick = { clickType, location in
-            ClickHandler.handle(clickType: clickType, location: location)
-            //print("\(clickType) at \(location)")
-        }
-        print("Event Tap Click Detector setup complete.")
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        NSApplication.shared.terminate(self)
+        return true
     }
 
+    private func setupClickDetector() {
+        clickDetector = EventTapClickDetector()
+
+        print("Event Tap Click Detector setup complete.")
+    }
+    
+    
 }

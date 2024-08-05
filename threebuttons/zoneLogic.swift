@@ -11,7 +11,6 @@ struct ZoneLogic {
     static func determineZone(for touch: Touch) -> (zone: Zone, color: Color) {
         let normalizedX = touch.normalizedX
         let normalizedY = touch.normalizedY
-        
         guard normalizedY >= 0.85 else {
             return (.outside, .green)
         }
