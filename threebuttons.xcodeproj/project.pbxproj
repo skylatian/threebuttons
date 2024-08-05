@@ -22,6 +22,7 @@
 		D4A34A6A2C54AA59004734BA /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D4A34A692C54AA59004734BA /* OpenMultitouchSupport */; };
 		D4A34A6D2C54AAA1004734BA /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D4A34A6C2C54AAA1004734BA /* OpenMultitouchSupport */; };
 		D4A34A702C54ABB5004734BA /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D4A34A6F2C54ABB5004734BA /* OpenMultitouchSupport */; };
+		D4EE064C2C6170FF00BA8365 /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D4EE064B2C6170FF00BA8365 /* OpenMultitouchSupport */; };
 		D4FBF7E52C4B4B4600022007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4FBF7E42C4B4B4600022007 /* Assets.xcassets */; };
 		D4FBF7E82C4B4B4600022007 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4FBF7E72C4B4B4600022007 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -1677,6 +1678,7 @@
 				D40DFAE52C613AB000DB7DBB /* OpenMultitouchSupport in Frameworks */,
 				D4A34A602C549059004734BA /* OpenMultitouchSupport in Frameworks */,
 				D4A34A6D2C54AAA1004734BA /* OpenMultitouchSupport in Frameworks */,
+				D4EE064C2C6170FF00BA8365 /* OpenMultitouchSupport in Frameworks */,
 				D45DD6562C55D04400063551 /* OpenMultitouchSupport in Frameworks */,
 				D41177D92C4DFEF8000ABEBF /* MultitouchSupport.framework in Frameworks */,
 				D4A34A702C54ABB5004734BA /* OpenMultitouchSupport in Frameworks */,
@@ -3419,6 +3421,7 @@
 				D43671562C6139CB000A5225 /* OpenMultitouchSupport */,
 				D40DFAE12C613A5900DB7DBB /* OpenMultitouchSupport */,
 				D40DFAE42C613AB000DB7DBB /* OpenMultitouchSupport */,
+				D4EE064B2C6170FF00BA8365 /* OpenMultitouchSupport */,
 			);
 			productName = threebuttons;
 			productReference = D4FBF7DD2C4B4B4400022007 /* threebuttons.app */;
@@ -3449,7 +3452,7 @@
 			);
 			mainGroup = D4FBF7D42C4B4B4400022007;
 			packageReferences = (
-				D40DFAE32C613AB000DB7DBB /* XCLocalSwiftPackageReference "OpenMultitouchSupport-main" */,
+				D4EE064A2C6170FF00BA8365 /* XCLocalSwiftPackageReference "OpenMultitouchSupport" */,
 			);
 			productRefGroup = D4FBF7DE2C4B4B4400022007 /* Products */;
 			projectDirPath = "";
@@ -3692,9 +3695,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		D40DFAE32C613AB000DB7DBB /* XCLocalSwiftPackageReference "OpenMultitouchSupport-main" */ = {
+		D4EE064A2C6170FF00BA8365 /* XCLocalSwiftPackageReference "OpenMultitouchSupport" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "OpenMultitouchSupport-main";
+			relativePath = OpenMultitouchSupport;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -3732,6 +3735,10 @@
 			productName = OpenMultitouchSupport;
 		};
 		D4A34A6F2C54ABB5004734BA /* OpenMultitouchSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OpenMultitouchSupport;
+		};
+		D4EE064B2C6170FF00BA8365 /* OpenMultitouchSupport */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OpenMultitouchSupport;
 		};
