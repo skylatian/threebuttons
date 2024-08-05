@@ -35,7 +35,7 @@ Or, follow development steps below
 
 
 ### Building & Development
-Clone the repo: `git clone https://github.com/skylatian/threebuttons.git`
+Clone the repo: `git clone https://github.com/skylatian/threebuttons.git --recurse-submodules`
 
 Cpen `threebuttons/OpenMultitouchSupport/Framework/OpenMultitouchSupportXCF.xcodeproj`
 
