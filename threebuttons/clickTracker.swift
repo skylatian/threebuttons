@@ -64,6 +64,7 @@ enum MouseButton {
 }
 
 private func modifyMouseEvent(event: CGEvent, newButtonType: MouseButton, newEventType: CGEventType) -> CGEvent? {
+    // currently unused
     // Set the mouse button type
     switch newButtonType {
     case .left:
@@ -74,63 +75,108 @@ private func modifyMouseEvent(event: CGEvent, newButtonType: MouseButton, newEve
         event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.center.rawValue))
     }
 
-    event.type = newEventType // Set the new event type - unsure if needed
+    //event.type = newEventType // Set the new event type - unsure if needed
 
     return event
 }
 
-import Cocoa
-
-// Assuming these are global or class-level variables to track the button states
+// Variables to track the button states and last active zone
 var leftButtonDown = false
 var rightButtonDown = false
 var middleButtonDown = false
+var lastActiveZone: MouseButton?
 
 private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+    //let clickDetector = Unmanaged<EventTapClickDetector>.fromOpaque(refcon!).takeUnretainedValue()
 
-    // Determine if the event is a mouse down or up
     let isMouseDown = type == .leftMouseDown || type == .rightMouseDown || type == .otherMouseDown
+    //let isMouseUp = type == .leftMouseUp || type == .rightMouseUp || type == .otherMouseUp
 
     print("Callback invoked with event type: \(event.type)")
 
-    // Check if no zone is active
-    if !(zoneStatus.shared.inLeft || zoneStatus.shared.inMid || zoneStatus.shared.inRight) {
-        print("No zone active")
-        // Generate mouse up events if needed
-        if leftButtonDown {
-            event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.left.rawValue))
-            event.type = .leftMouseUp
-            leftButtonDown = false
-            print("Generated left mouse up")
+    // New zone determination
+    var currentZone: MouseButton?
+    if zoneStatus.shared.inLeft {
+        currentZone = .left
+    } else if zoneStatus.shared.inMid {
+        currentZone = .middle
+    } else if zoneStatus.shared.inRight {
+        currentZone = .right
+    }
+    
+    // Handle moving out of any zones
+        if currentZone == nil {
+            print("No zone active")
+            // Generate mouse up events if a button is still down
+            if leftButtonDown {
+                event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.left.rawValue))
+                event.type = .leftMouseUp
+                leftButtonDown = false
+                print("Generated left mouse up")
+            }
+            if middleButtonDown {
+                event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.center.rawValue))
+                event.type = .otherMouseUp
+                middleButtonDown = false
+                print("Generated middle mouse up")
+            }
+            if rightButtonDown {
+                event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.right.rawValue))
+                event.type = .rightMouseUp
+                rightButtonDown = false
+                print("Generated right mouse up")
+            }
+            lastActiveZone = nil
+            return Unmanaged.passRetained(event)
         }
-        if middleButtonDown {
-            event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.center.rawValue))
-            event.type = .otherMouseUp
-            middleButtonDown = false
-            print("Generated middle mouse up")
+    
+    // Check for zone transition
+    if let lastZone = lastActiveZone, lastZone != currentZone, (leftButtonDown || rightButtonDown || middleButtonDown) {
+        // Generate mouse up event for the previous zone
+        switch lastZone {
+        case .left:
+            if leftButtonDown {
+                event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.left.rawValue))
+                event.type = .leftMouseUp
+                leftButtonDown = false
+            }
+        case .middle:
+            if middleButtonDown {
+                event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.center.rawValue))
+                event.type = .otherMouseUp
+                middleButtonDown = false
+            }
+        case .right:
+            if rightButtonDown {
+                event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.right.rawValue))
+                event.type = .rightMouseUp
+                rightButtonDown = false
+            }
         }
-        if rightButtonDown {
-            event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.right.rawValue))
-            event.type = .rightMouseUp
-            rightButtonDown = false
-            print("Generated right mouse up")
-        }
+        print("Transition mouse up for \(lastZone)")
+        lastActiveZone = currentZone
         return Unmanaged.passRetained(event)
     }
 
-    // Handle events based on specific zones
-    if zoneStatus.shared.inLeft {
-        event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.left.rawValue))
-        event.type = isMouseDown ? .leftMouseDown : .leftMouseUp
-        leftButtonDown = isMouseDown
-    } else if zoneStatus.shared.inMid {
-        event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.center.rawValue))
-        event.type = isMouseDown ? .otherMouseDown : .otherMouseUp
-        middleButtonDown = isMouseDown
-    } else if zoneStatus.shared.inRight {
-        event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.right.rawValue))
-        event.type = isMouseDown ? .rightMouseDown : .rightMouseUp
-        rightButtonDown = isMouseDown
+    // Handle mouse down or up events based on current zone
+    if let zone = currentZone {
+        switch zone {
+        case .left:
+            event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.left.rawValue))
+            event.type = isMouseDown ? .leftMouseDown : .leftMouseUp
+            leftButtonDown = isMouseDown
+        case .middle:
+            event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.center.rawValue))
+            event.type = isMouseDown ? .otherMouseDown : .otherMouseUp
+            middleButtonDown = isMouseDown
+        case .right:
+            event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.right.rawValue))
+            event.type = isMouseDown ? .rightMouseDown : .rightMouseUp
+            rightButtonDown = isMouseDown
+        }
+        lastActiveZone = zone
+    } else {
+        lastActiveZone = nil
     }
 
     print("Event modified to type: \(event.type)")
