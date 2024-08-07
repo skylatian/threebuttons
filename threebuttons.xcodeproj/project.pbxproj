@@ -10,6 +10,8 @@
 		D40DFAE22C613A5900DB7DBB /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D40DFAE12C613A5900DB7DBB /* OpenMultitouchSupport */; };
 		D40DFAE52C613AB000DB7DBB /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D40DFAE42C613AB000DB7DBB /* OpenMultitouchSupport */; };
 		D41177D92C4DFEF8000ABEBF /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41175262C4DFED6000ABEBF /* MultitouchSupport.framework */; };
+		D4286A342C64233D00166290 /* appsettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4286A332C64233D00166290 /* appsettings.swift */; };
+		D4286A362C6424A600166290 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4286A352C6424A600166290 /* README.md */; };
 		D43671572C6139CB000A5225 /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D43671562C6139CB000A5225 /* OpenMultitouchSupport */; };
 		D45AFF262C540A500015AEEA /* ContentView-new.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45AFF252C540A500015AEEA /* ContentView-new.swift */; };
 		D45AFF2A2C5417E00015AEEA /* zoneLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45AFF292C5417E00015AEEA /* zoneLogic.swift */; };
@@ -1655,6 +1657,8 @@
 		D41177D52C4DFED6000ABEBF /* XQuery.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = XQuery.framework; sourceTree = "<group>"; };
 		D41177D62C4DFED6000ABEBF /* yara.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = yara.framework; sourceTree = "<group>"; };
 		D41177D72C4DFED6000ABEBF /* ZhuGeSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZhuGeSupport.framework; sourceTree = "<group>"; };
+		D4286A332C64233D00166290 /* appsettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appsettings.swift; sourceTree = "<group>"; };
+		D4286A352C6424A600166290 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = .github/README.md; sourceTree = "<group>"; };
 		D45AFF252C540A500015AEEA /* ContentView-new.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView-new.swift"; sourceTree = "<group>"; };
 		D45AFF292C5417E00015AEEA /* zoneLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zoneLogic.swift; sourceTree = "<group>"; };
 		D47118142C54287A00A0375B /* clickTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clickTracker.swift; sourceTree = "<group>"; };
@@ -3358,6 +3362,7 @@
 		D4FBF7D42C4B4B4400022007 = {
 			isa = PBXGroup;
 			children = (
+				D4286A352C6424A600166290 /* README.md */,
 				D4FBF7DF2C4B4B4400022007 /* threebuttons */,
 				D4FBF7DE2C4B4B4400022007 /* Products */,
 				D41171792C4DFEB9000ABEBF /* Frameworks */,
@@ -3377,6 +3382,7 @@
 			children = (
 				D486C5802C61330600042B89 /* threebuttonsApp-new.swift */,
 				D45AFF292C5417E00015AEEA /* zoneLogic.swift */,
+				D4286A332C64233D00166290 /* appsettings.swift */,
 				D47118142C54287A00A0375B /* clickTracker.swift */,
 				D45AFF252C540A500015AEEA /* ContentView-new.swift */,
 				D4A34A632C549088004734BA /* ContentViewState.swift */,
@@ -3468,6 +3474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4286A362C6424A600166290 /* README.md in Resources */,
 				D4FBF7E82C4B4B4600022007 /* Preview Assets.xcassets in Resources */,
 				D4FBF7E52C4B4B4600022007 /* Assets.xcassets in Resources */,
 			);
@@ -3482,6 +3489,7 @@
 			files = (
 				D45AFF2A2C5417E00015AEEA /* zoneLogic.swift in Sources */,
 				D45AFF262C540A500015AEEA /* ContentView-new.swift in Sources */,
+				D4286A342C64233D00166290 /* appsettings.swift in Sources */,
 				D4A34A662C549088004734BA /* ContentViewState.swift in Sources */,
 				D47118162C54287A00A0375B /* clickTracker.swift in Sources */,
 				D486C5812C61330600042B89 /* threebuttonsApp-new.swift in Sources */,
