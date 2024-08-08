@@ -132,7 +132,7 @@ private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event
                 lastActiveZone = nil
                 return Unmanaged.passRetained(event)
             }
-            else if settings.shared.strictZones == true
+            else if Settings.shared.strictZones == true
             {
                 print("ignored click outside zone, strictZones true")
                 return nil

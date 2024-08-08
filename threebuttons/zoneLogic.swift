@@ -12,18 +12,24 @@ struct ZoneLogic {
         let normalizedX = touch.normalizedX
         let normalizedY = touch.normalizedY
         guard normalizedY >= 0.85 else {
-            return (.outside, .green)
+            return (.outside, .green) // probably don't need the guard statement here but it's not hurting anything
         }
-        if normalizedX < 0.4 {
+        if normalizedX >= Settings.shared.leftZoneStart && normalizedX < Settings.shared.leftZoneEnd {
             //print("finger in left zone")
             return (.left, .blue)
-        } else if normalizedX >= 0.4 && normalizedX <= 0.6 {
+        } else if normalizedX >= Settings.shared.midZoneStart && normalizedX <= Settings.shared.midZoneEnd {
             //print("finger in middle zone")
             return (.middle, .white)
-        } else {
+        } else if normalizedX > Settings.shared.rightZoneStart && normalizedX <= Settings.shared.rightZoneEnd {
             //print("finger in right zone")
             return (.right, .red)
         }
+        else
+        {
+            // for the wild ones who want spaces between their zones
+            return (.outside, .green)
+        }
+        
     }
 }
 
