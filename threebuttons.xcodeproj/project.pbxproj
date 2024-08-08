@@ -14,14 +14,13 @@
 		D4286A362C6424A600166290 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4286A352C6424A600166290 /* README.md */; };
 		D4286A3B2C644C4B00166290 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D4286A3A2C644C4B00166290 /* LaunchAtLogin */; };
 		D43671572C6139CB000A5225 /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D43671562C6139CB000A5225 /* OpenMultitouchSupport */; };
-		D45AFF262C540A500015AEEA /* ContentView-new.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45AFF252C540A500015AEEA /* ContentView-new.swift */; };
+		D45AFF262C540A500015AEEA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45AFF252C540A500015AEEA /* ContentView.swift */; };
 		D45AFF2A2C5417E00015AEEA /* zoneLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45AFF292C5417E00015AEEA /* zoneLogic.swift */; };
 		D45DD6532C55CFE000063551 /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D45DD6522C55CFE000063551 /* OpenMultitouchSupport */; };
 		D45DD6562C55D04400063551 /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D45DD6552C55D04400063551 /* OpenMultitouchSupport */; };
 		D47118162C54287A00A0375B /* clickTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47118142C54287A00A0375B /* clickTracker.swift */; };
-		D486C5812C61330600042B89 /* threebuttonsApp-new.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C5802C61330600042B89 /* threebuttonsApp-new.swift */; };
+		D486C5812C61330600042B89 /* threebuttonsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C5802C61330600042B89 /* threebuttonsApp.swift */; };
 		D4A34A602C549059004734BA /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D4A34A5F2C549059004734BA /* OpenMultitouchSupport */; };
-		D4A34A662C549088004734BA /* ContentViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A34A632C549088004734BA /* ContentViewState.swift */; };
 		D4A34A6A2C54AA59004734BA /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D4A34A692C54AA59004734BA /* OpenMultitouchSupport */; };
 		D4A34A6D2C54AAA1004734BA /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D4A34A6C2C54AAA1004734BA /* OpenMultitouchSupport */; };
 		D4A34A702C54ABB5004734BA /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D4A34A6F2C54ABB5004734BA /* OpenMultitouchSupport */; };
@@ -1660,11 +1659,10 @@
 		D41177D72C4DFED6000ABEBF /* ZhuGeSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZhuGeSupport.framework; sourceTree = "<group>"; };
 		D4286A332C64233D00166290 /* appsettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appsettings.swift; sourceTree = "<group>"; };
 		D4286A352C6424A600166290 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = .github/README.md; sourceTree = "<group>"; };
-		D45AFF252C540A500015AEEA /* ContentView-new.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView-new.swift"; sourceTree = "<group>"; };
+		D45AFF252C540A500015AEEA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D45AFF292C5417E00015AEEA /* zoneLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zoneLogic.swift; sourceTree = "<group>"; };
 		D47118142C54287A00A0375B /* clickTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clickTracker.swift; sourceTree = "<group>"; };
-		D486C5802C61330600042B89 /* threebuttonsApp-new.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "threebuttonsApp-new.swift"; sourceTree = "<group>"; };
-		D4A34A632C549088004734BA /* ContentViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewState.swift; sourceTree = "<group>"; };
+		D486C5802C61330600042B89 /* threebuttonsApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = threebuttonsApp.swift; sourceTree = "<group>"; };
 		D4FBF7DD2C4B4B4400022007 /* threebuttons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = threebuttons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4FBF7E42C4B4B4600022007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D4FBF7E72C4B4B4600022007 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -3382,12 +3380,11 @@
 		D4FBF7DF2C4B4B4400022007 /* threebuttons */ = {
 			isa = PBXGroup;
 			children = (
-				D486C5802C61330600042B89 /* threebuttonsApp-new.swift */,
+				D486C5802C61330600042B89 /* threebuttonsApp.swift */,
 				D45AFF292C5417E00015AEEA /* zoneLogic.swift */,
 				D4286A332C64233D00166290 /* appsettings.swift */,
 				D47118142C54287A00A0375B /* clickTracker.swift */,
-				D45AFF252C540A500015AEEA /* ContentView-new.swift */,
-				D4A34A632C549088004734BA /* ContentViewState.swift */,
+				D45AFF252C540A500015AEEA /* ContentView.swift */,
 				D4FBF7E42C4B4B4600022007 /* Assets.xcassets */,
 				D4FBF7E92C4B4B4600022007 /* threebuttons.entitlements */,
 				D4FBF7E62C4B4B4600022007 /* Preview Content */,
@@ -3492,11 +3489,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D45AFF2A2C5417E00015AEEA /* zoneLogic.swift in Sources */,
-				D45AFF262C540A500015AEEA /* ContentView-new.swift in Sources */,
+				D45AFF262C540A500015AEEA /* ContentView.swift in Sources */,
 				D4286A342C64233D00166290 /* appsettings.swift in Sources */,
-				D4A34A662C549088004734BA /* ContentViewState.swift in Sources */,
 				D47118162C54287A00A0375B /* clickTracker.swift in Sources */,
-				D486C5812C61330600042B89 /* threebuttonsApp-new.swift in Sources */,
+				D486C5812C61330600042B89 /* threebuttonsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

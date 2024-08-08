@@ -14,13 +14,12 @@ struct MyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView().frame(minWidth: 500, minHeight: 300) // <- 1. Size here
+            ContentView().frame(minWidth: 500, minHeight: 300)
             SettingsColumnView()
-                .frame(minWidth: 500, minHeight: 265) // <- 1. Size here
+                .frame(minWidth: 500, minHeight: 265)
             
         }
-        
-        .windowResizability(.contentSize) // <- 2. Add the restriction here
+        .windowResizability(.contentSize)
     }
 }
 
