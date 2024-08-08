@@ -110,16 +110,27 @@ struct TouchesView: NSViewRepresentable {
 
 }
 
-struct TrackPadView: View {
+import SwiftUI
 
+struct TrackPadView: View {
+    @ObservedObject private var settings = Settings.shared
     private let touchViewSize: CGFloat = 20
 
     @State var touches: [Touch] = []
 
     var body: some View {
-        
         ZStack {
             GeometryReader { proxy in
+                // Draw the grey rectangle as the background
+                Rectangle()
+                    .foregroundColor(.gray.opacity(0.3)) // Light grey background for touchpad
+
+                // Draw zone rectangles based on settings
+                drawZoneRect(proxy: proxy, start: settings.leftZoneStart, end: settings.leftZoneEnd, color: .blue)
+                drawZoneRect(proxy: proxy, start: settings.midZoneStart, end: settings.midZoneEnd, color: .white)
+                drawZoneRect(proxy: proxy, start: settings.rightZoneStart, end: settings.rightZoneEnd, color: .red)
+
+                // Existing touch visualization
                 TouchesView(touches: self.$touches)
 
                 ForEach(self.touches) { touch in
@@ -134,7 +145,15 @@ struct TrackPadView: View {
             }
         }
     }
+
+    private func drawZoneRect(proxy: GeometryProxy, start: CGFloat, end: CGFloat, color: Color) -> some View {
+        Rectangle()
+            .fill(color.opacity(0.5)) // Semi-transparent colored zone
+            .frame(width: proxy.size.width * (end - start), height: proxy.size.height * settings.zoneHeight)
+            .offset(x: proxy.size.width * start, y: proxy.size.height - proxy.size.height*settings.zoneHeight)
+    }
 }
+
 
 struct ContentView: View {
     var body: some View {
@@ -144,4 +163,5 @@ struct ContentView: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+    
 }

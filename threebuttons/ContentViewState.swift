@@ -10,6 +10,7 @@ import OpenMultitouchSupport
 import SwiftUI
 
 final class ContentViewState: ObservableObject {
+    // ... unused?
     @Published var touchData = [OMSTouchData]()
     @Published var isListening: Bool = false
 

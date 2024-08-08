@@ -15,13 +15,15 @@ ThreeButtons is meant to emulate the three physical buttons that you’d find on
 
 ### Planned Features:
 - Menu Bar item
-- Proper preferences window:
-    - Resizable zones
-    - Preview area
-    - Launch at login
-    - Program inclusion/exclusion list
-    - Enable/disable certain zones (for example, to just have a large right click zone)
-    - Disable/enable click recognition outside of zone
+- 🚧 Proper preferences window
+- 🚧 ✅ Resizable zones
+- ✅ Preview area
+- Launch at login
+- Program inclusion/exclusion list
+- Enable/disable certain zones (for example, to just have a large right click zone)
+- 🚧 Disable/enable click recognition outside of zone
+
+🚧 = work started
 
 
 # Installation

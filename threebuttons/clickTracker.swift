@@ -113,21 +113,36 @@ private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event
                 event.type = .leftMouseUp
                 leftButtonDown = false
                 print("Generated left mouse up")
+                lastActiveZone = nil
+                return Unmanaged.passRetained(event)
             }
             if middleButtonDown {
                 event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.center.rawValue))
                 event.type = .otherMouseUp
                 middleButtonDown = false
                 print("Generated middle mouse up")
+                lastActiveZone = nil
+                return Unmanaged.passRetained(event)
             }
             if rightButtonDown {
                 event.setIntegerValueField(.mouseEventButtonNumber, value: Int64(CGMouseButton.right.rawValue))
                 event.type = .rightMouseUp
                 rightButtonDown = false
                 print("Generated right mouse up")
+                lastActiveZone = nil
+                return Unmanaged.passRetained(event)
             }
-            lastActiveZone = nil
-            return Unmanaged.passRetained(event)
+            else if Settings.shared.strictZones == true
+            {
+                print("ignored click outside zone, strictZones true")
+                return nil
+            }
+            else
+            {
+                print("passed click outside zone, strictZones false")
+                return Unmanaged.passRetained(event)
+            }
+                
         }
     
     // Check for zone transition
