@@ -12,6 +12,7 @@
 		D41177D92C4DFEF8000ABEBF /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41175262C4DFED6000ABEBF /* MultitouchSupport.framework */; };
 		D4286A342C64233D00166290 /* appsettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4286A332C64233D00166290 /* appsettings.swift */; };
 		D4286A362C6424A600166290 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4286A352C6424A600166290 /* README.md */; };
+		D4286A3B2C644C4B00166290 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D4286A3A2C644C4B00166290 /* LaunchAtLogin */; };
 		D43671572C6139CB000A5225 /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D43671562C6139CB000A5225 /* OpenMultitouchSupport */; };
 		D45AFF262C540A500015AEEA /* ContentView-new.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45AFF252C540A500015AEEA /* ContentView-new.swift */; };
 		D45AFF2A2C5417E00015AEEA /* zoneLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45AFF292C5417E00015AEEA /* zoneLogic.swift */; };
@@ -1681,6 +1682,7 @@
 				D40DFAE22C613A5900DB7DBB /* OpenMultitouchSupport in Frameworks */,
 				D40DFAE52C613AB000DB7DBB /* OpenMultitouchSupport in Frameworks */,
 				D4A34A602C549059004734BA /* OpenMultitouchSupport in Frameworks */,
+				D4286A3B2C644C4B00166290 /* LaunchAtLogin in Frameworks */,
 				D4A34A6D2C54AAA1004734BA /* OpenMultitouchSupport in Frameworks */,
 				D4EE064C2C6170FF00BA8365 /* OpenMultitouchSupport in Frameworks */,
 				D45DD6562C55D04400063551 /* OpenMultitouchSupport in Frameworks */,
@@ -3428,6 +3430,7 @@
 				D40DFAE12C613A5900DB7DBB /* OpenMultitouchSupport */,
 				D40DFAE42C613AB000DB7DBB /* OpenMultitouchSupport */,
 				D4EE064B2C6170FF00BA8365 /* OpenMultitouchSupport */,
+				D4286A3A2C644C4B00166290 /* LaunchAtLogin */,
 			);
 			productName = threebuttons;
 			productReference = D4FBF7DD2C4B4B4400022007 /* threebuttons.app */;
@@ -3459,6 +3462,7 @@
 			mainGroup = D4FBF7D42C4B4B4400022007;
 			packageReferences = (
 				D4EE064A2C6170FF00BA8365 /* XCLocalSwiftPackageReference "OpenMultitouchSupport" */,
+				D4286A392C644C4B00166290 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 			);
 			productRefGroup = D4FBF7DE2C4B4B4400022007 /* Products */;
 			projectDirPath = "";
@@ -3709,6 +3713,17 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		D4286A392C644C4B00166290 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		D40DFAE12C613A5900DB7DBB /* OpenMultitouchSupport */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -3717,6 +3732,11 @@
 		D40DFAE42C613AB000DB7DBB /* OpenMultitouchSupport */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OpenMultitouchSupport;
+		};
+		D4286A3A2C644C4B00166290 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4286A392C644C4B00166290 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
 		};
 		D43671562C6139CB000A5225 /* OpenMultitouchSupport */ = {
 			isa = XCSwiftPackageProductDependency;

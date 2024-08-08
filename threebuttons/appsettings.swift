@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import SwiftUI
+import LaunchAtLogin
 
 class Settings: ObservableObject {
     static let shared = Settings()
@@ -141,6 +142,7 @@ struct toggleView: View {
     var body: some View {
         Form {
             VStack(alignment: .leading) {
+                LaunchAtLogin.Toggle()
                 Toggle("Option One", isOn: $optionOne)
                 Toggle("Option Two", isOn: $optionTwo)
                 Toggle("Option Three", isOn: $optionThree)
@@ -159,8 +161,8 @@ struct SettingsColumnView: View {
         HStack {
             // Left Column
             VStack {
-                Text("Zone Settings").font(.headline).padding()
-                SettingsView().padding()
+                Text("Zone Settings").font(.headline).padding([.top], 20).padding([.bottom], 10)
+                SettingsView().padding(.all, 10)
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity) // ensure column takes half available width
