@@ -14,13 +14,13 @@ struct ZoneLogic {
         guard normalizedY >= 0.85 else {
             return (.outside, .green) // probably don't need the guard statement here but it's not hurting anything
         }
-        if normalizedX >= Settings.shared.leftZoneStart && normalizedX < Settings.shared.leftZoneEnd {//&& Settings.shared.enableLeftZone == true {
+        if normalizedX >= Settings.shared.leftZoneStart && normalizedX < Settings.shared.leftZoneEnd && Settings.shared.enableLeftZone == true {
             //print("finger in left zone")
             return (.left, .blue)
-        } else if normalizedX >= Settings.shared.midZoneStart && normalizedX <= Settings.shared.midZoneEnd {//&& Settings.shared.enableMidZone == true {
+        } else if normalizedX >= Settings.shared.midZoneStart && normalizedX <= Settings.shared.midZoneEnd && Settings.shared.enableMidZone == true {
             //print("finger in middle zone")
             return (.middle, .white)
-        } else if normalizedX > Settings.shared.rightZoneStart && normalizedX <= Settings.shared.rightZoneEnd {//&& Settings.shared.enableRightZone == true {
+        } else if normalizedX > Settings.shared.rightZoneStart && normalizedX <= Settings.shared.rightZoneEnd && Settings.shared.enableRightZone == true {
             //print("finger in right zone")
             return (.right, .red)
         }

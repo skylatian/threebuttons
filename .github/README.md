@@ -15,19 +15,23 @@ ThreeButtons is meant to emulate the three physical buttons that you’d find on
 
 ### Planned Features:
 - Menu Bar item
-- 🚧 Proper preferences window
-- 🚧 ✅ Resizable zones
 - ✅ Preview area
-- Launch at login
+- ✅ Launch at login
+- ✅ Disable/enable click recognition outside of zone ('Strict Zones')
+- 🚧 ✅ Resizable zones
+- 🚧 Proper preferences window
+- 🚧 Enable/disable certain zones (for example, to just have a large right click zone)
+- Enable/disable two-finger right click overriding zone presence (if you two-finger right click in any zone, toggle it counting as a right click or being overridden by the zones)
 - Program inclusion/exclusion list
-- Enable/disable certain zones (for example, to just have a large right click zone)
-- 🚧 Disable/enable click recognition outside of zone
 
-🚧 = work started
+🚧 = in progress
 
+### Issues
+- Touching a zone while you've clicked elsewhere (and then releasing that other click) will cause that key to get stuck
+    - Should be fixable by ignoring clicks in zones if a click already exists elsewhere/**making sure to release one type of click before starting another**
 
 # Installation
-Download a binary from https://github.com/skylatian/threebuttons/releases
+Download a binary from https://github.com/skylatian/threebuttons/releases (coming soon)
 Note: I do not have an apple developer account, so the package will be unsigned and you'll have to override the system warning in Preferences -> Privacy and Security
 
 Or, follow development steps below

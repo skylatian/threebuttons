@@ -156,6 +156,8 @@ struct toggleView: View {
                 Toggle("Strict Zones", isOn: $settings.strictZones)
                     .tooltip("If enabled, clicks outside of the left/middle/right zones will be ignored (only clicks in zones will be recognized")
                 Toggle("Enable Left Zone", isOn: $settings.enableLeftZone)
+                Toggle("Enable Middle Zone", isOn: $settings.enableMidZone)
+                Toggle("Enable Right Zone", isOn: $settings.enableRightZone)
                 Toggle("Option Three", isOn: $optionThree)
                 Toggle("Option Four", isOn: $optionFour)
                     
