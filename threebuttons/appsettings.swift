@@ -11,8 +11,10 @@ import SwiftUI
 import LaunchAtLogin
 
 class Settings: ObservableObject {
+    
     static let shared = Settings()
 
+    // zone settings
     @Published var leftZoneStart: CGFloat = 0.0
     @Published var leftZoneEnd: CGFloat = 0.38
     @Published var midZoneStart: CGFloat = 0.38
@@ -22,7 +24,14 @@ class Settings: ObservableObject {
 
     @Published var zoneHeight: CGFloat = 0.15
     
+    // toggles
     @Published var strictZones: Bool = false // if true, clicks outside of the left/middle/right zones will be entirely ignored
+    @Published var enableLeftZone: Bool = true // allows disabling of left zone
+    @Published var enableMidZone: Bool = true // allows disabling of middle zone
+    @Published var enableRightZone: Bool = true // allows disabling of right zone
+    
+    
+    
     // usage: settings.shared.strictZones = true
     
     func resetZonesToDefault() {
@@ -46,7 +55,6 @@ struct ZoneSize {
 }
 
 // usage: settings.shared.strictZones = true
-import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject private var settings = Settings.shared
@@ -134,6 +142,8 @@ struct SettingsView: View {
 
 struct toggleView: View {
     
+    @ObservedObject var settings = Settings.shared
+    
     @State private var optionOne = false
     @State private var optionTwo = false
     @State private var optionThree = false
@@ -143,8 +153,11 @@ struct toggleView: View {
         Form {
             VStack(alignment: .leading) {
                 LaunchAtLogin.Toggle()
-                Toggle("Option One", isOn: $optionOne)
-                Toggle("Option Two", isOn: $optionTwo)
+                Toggle("Strict Zones", isOn: $settings.strictZones)
+                    .tooltip("If enabled, clicks outside of the left/middle/right zones will be ignored (only clicks in zones will be recognized")
+                Toggle("Enable Left Zone", isOn: $settings.enableLeftZone)
+                Toggle("Enable Middle Zone", isOn: $settings.enableMidZone)
+                Toggle("Enable Right Zone", isOn: $settings.enableRightZone)
                 Toggle("Option Three", isOn: $optionThree)
                 Toggle("Option Four", isOn: $optionFour)
                     
@@ -170,7 +183,12 @@ struct SettingsColumnView: View {
             
             // Right Column
             VStack {
-                Text("Options").font(.headline).padding()
+                Text("Options").font(.headline).padding([.top], 10)
+                    .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                Text("Hover for details")
+                    .font(.subheadline)
+                    .frame(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .padding(.bottom, 5)
                 toggleView()
                     .multilineTextAlignment(.leading)
                 Spacer()

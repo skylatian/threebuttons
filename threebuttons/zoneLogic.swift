@@ -14,13 +14,13 @@ struct ZoneLogic {
         guard normalizedY >= 0.85 else {
             return (.outside, .green) // probably don't need the guard statement here but it's not hurting anything
         }
-        if normalizedX >= Settings.shared.leftZoneStart && normalizedX < Settings.shared.leftZoneEnd {
+        if normalizedX >= Settings.shared.leftZoneStart && normalizedX < Settings.shared.leftZoneEnd && Settings.shared.enableLeftZone == true {
             //print("finger in left zone")
             return (.left, .blue)
-        } else if normalizedX >= Settings.shared.midZoneStart && normalizedX <= Settings.shared.midZoneEnd {
+        } else if normalizedX >= Settings.shared.midZoneStart && normalizedX <= Settings.shared.midZoneEnd && Settings.shared.enableMidZone == true {
             //print("finger in middle zone")
             return (.middle, .white)
-        } else if normalizedX > Settings.shared.rightZoneStart && normalizedX <= Settings.shared.rightZoneEnd {
+        } else if normalizedX > Settings.shared.rightZoneStart && normalizedX <= Settings.shared.rightZoneEnd && Settings.shared.enableRightZone == true {
             //print("finger in right zone")
             return (.right, .red)
         }
@@ -29,7 +29,6 @@ struct ZoneLogic {
             // for the wild ones who want spaces between their zones
             return (.outside, .green)
         }
-        
     }
 }
 
@@ -47,7 +46,25 @@ class zoneStatus: ObservableObject {
     @Published var inLeft: Bool = false // defaults 
     @Published var inMid: Bool = false
     @Published var inRight: Bool = false
+    @Published var outside: Bool = false
     
     private init() { }
     
+}
+
+class ZoneTracker {
+    static let shared = ZoneTracker() // Singleton instance
+
+    enum Zone {
+        case left
+        case middle
+        case right
+        case outside // Represents no zone
+    }
+
+    var lastActiveZone: Zone = .outside {
+        didSet {
+            print("Active zone changed to: \(lastActiveZone)")
+        }
+    }
 }
