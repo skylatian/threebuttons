@@ -23,7 +23,6 @@ struct Touch: Identifiable {
 
 struct TrackPadView: View {
     @ObservedObject private var settings = Settings.shared
-    //@ObservedObject private var touchManager: BackgroundTouchManager
     @ObservedObject private var touchManager = BackgroundTouchManager.shared
     private let touchViewSize: CGFloat = 20
 
@@ -62,15 +61,3 @@ struct TrackPadView: View {
 }
 
 
-struct ContentView: View {
-    var body: some View {
-        TrackPadView()
-            .background(Color.gray)
-            .aspectRatio(1.6, contentMode: .fit)
-            .padding()
-            .frame(maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
-        SettingsColumnView()
-                       .frame(minWidth: 550, minHeight: 265)
-                   
-    }
-}
