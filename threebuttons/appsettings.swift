@@ -72,8 +72,8 @@ struct SettingsView: View {
                                     self.settings.leftZoneEnd = newValue
                                 }
                             }
-                        ), in: settings.leftZoneStart...settings.midZoneStart, step: 0.01)
-                        .frame(width: 200)
+                        ), in: settings.leftZoneStart...settings.midZoneStart, step: 0.02)
+                        .frame(width: 150)
                     }
                 }
                 
@@ -92,8 +92,8 @@ struct SettingsView: View {
                                     }
                                 }
                             }
-                        ), in: settings.leftZoneEnd...settings.midZoneEnd, step: 0.01)
-                        .frame(width: 200)
+                        ), in: settings.leftZoneEnd...settings.midZoneEnd, step: 0.02)
+                        .frame(width: 150)
                     }
                     
                     HStack {
@@ -110,8 +110,8 @@ struct SettingsView: View {
                                     }
                                 }
                             }
-                        ), in: settings.midZoneStart...settings.rightZoneStart, step: 0.01)
-                        .frame(width: 200)
+                        ), in: settings.midZoneStart...settings.rightZoneStart, step: 0.02)
+                        .frame(width: 150)
                     }
                 }
                 
@@ -125,8 +125,8 @@ struct SettingsView: View {
                                     self.settings.rightZoneStart = newValue
                                 }
                             }
-                        ), in: settings.midZoneEnd...settings.rightZoneEnd, step: 0.01)
-                        .frame(width: 200)
+                        ), in: settings.midZoneEnd...settings.rightZoneEnd, step: 0.02)
+                        .frame(width: 150)
                     }
                 }
             
@@ -174,7 +174,7 @@ struct SettingsColumnView: View {
         HStack {
             // Left Column
             VStack {
-                Text("Zone Settings").font(.headline).padding([.top], 20).padding([.bottom], 10)
+                Text("Zone Settings").font(.headline).padding([.top], 20).padding([.bottom], 0)
                 SettingsView().padding(.all, 10)
                 Spacer()
             }

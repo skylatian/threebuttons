@@ -90,19 +90,15 @@ private func myEventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event
     //let clickDetector = Unmanaged<EventTapClickDetector>.fromOpaque(refcon!).takeUnretainedValue()
 
     let isMouseDown = type == .leftMouseDown || type == .rightMouseDown || type == .otherMouseDown
-    let isMouseUp = type == .leftMouseUp || type == .rightMouseUp || type == .otherMouseUp
+    //let isMouseUp = type == .leftMouseUp || type == .rightMouseUp || type == .otherMouseUp
 
     print("Callback invoked with event type: \(event.type)")
     
-    print("last active zone:", lastActiveButton)
-
-    
+    //print("last active zone:", lastActiveButton)
     
     //if isMouseDown // is true, but lastActiveButton
 
  
- 
-
     // New zone determination
     var currentZone: MouseButton?
     if zoneStatus.shared.inLeft {

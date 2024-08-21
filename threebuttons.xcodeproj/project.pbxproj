@@ -11,6 +11,8 @@
 		D40DFAE52C613AB000DB7DBB /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D40DFAE42C613AB000DB7DBB /* OpenMultitouchSupport */; };
 		D40EC8D12C645C46003D80D5 /* tooltips.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EC8D02C645C46003D80D5 /* tooltips.swift */; };
 		D41177D92C4DFEF8000ABEBF /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41175262C4DFED6000ABEBF /* MultitouchSupport.framework */; };
+		D41E6E482C743B8C005A5CE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41E6E472C743B8C005A5CE5 /* AppDelegate.swift */; };
+		D41E6E4A2C743DE0005A5CE5 /* BackgroundTouchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41E6E492C743DE0005A5CE5 /* BackgroundTouchManager.swift */; };
 		D4286A342C64233D00166290 /* appsettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4286A332C64233D00166290 /* appsettings.swift */; };
 		D4286A362C6424A600166290 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D4286A352C6424A600166290 /* README.md */; };
 		D4286A3B2C644C4B00166290 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D4286A3A2C644C4B00166290 /* LaunchAtLogin */; };
@@ -1659,6 +1661,8 @@
 		D41177D52C4DFED6000ABEBF /* XQuery.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = XQuery.framework; sourceTree = "<group>"; };
 		D41177D62C4DFED6000ABEBF /* yara.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = yara.framework; sourceTree = "<group>"; };
 		D41177D72C4DFED6000ABEBF /* ZhuGeSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZhuGeSupport.framework; sourceTree = "<group>"; };
+		D41E6E472C743B8C005A5CE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D41E6E492C743DE0005A5CE5 /* BackgroundTouchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTouchManager.swift; sourceTree = "<group>"; };
 		D4286A332C64233D00166290 /* appsettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appsettings.swift; sourceTree = "<group>"; };
 		D4286A352C6424A600166290 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = .github/README.md; sourceTree = "<group>"; };
 		D45AFF252C540A500015AEEA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -3382,12 +3386,14 @@
 		D4FBF7DF2C4B4B4400022007 /* threebuttons */ = {
 			isa = PBXGroup;
 			children = (
+				D41E6E492C743DE0005A5CE5 /* BackgroundTouchManager.swift */,
 				D486C5802C61330600042B89 /* threebuttonsApp.swift */,
 				D45AFF292C5417E00015AEEA /* zoneLogic.swift */,
 				D4286A332C64233D00166290 /* appsettings.swift */,
 				D40EC8D02C645C46003D80D5 /* tooltips.swift */,
 				D47118142C54287A00A0375B /* clickTracker.swift */,
 				D45AFF252C540A500015AEEA /* ContentView.swift */,
+				D41E6E472C743B8C005A5CE5 /* AppDelegate.swift */,
 				D4FBF7E42C4B4B4600022007 /* Assets.xcassets */,
 				D4FBF7E92C4B4B4600022007 /* threebuttons.entitlements */,
 				D4FBF7E62C4B4B4600022007 /* Preview Content */,
@@ -3495,8 +3501,10 @@
 				D40EC8D12C645C46003D80D5 /* tooltips.swift in Sources */,
 				D45AFF262C540A500015AEEA /* ContentView.swift in Sources */,
 				D4286A342C64233D00166290 /* appsettings.swift in Sources */,
+				D41E6E482C743B8C005A5CE5 /* AppDelegate.swift in Sources */,
 				D47118162C54287A00A0375B /* clickTracker.swift in Sources */,
 				D486C5812C61330600042B89 /* threebuttonsApp.swift in Sources */,
+				D41E6E4A2C743DE0005A5CE5 /* BackgroundTouchManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3627,6 +3635,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = threebuttons/threebuttons.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3635,12 +3644,13 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = skylatian.threebuttons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -3658,6 +3668,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = threebuttons/threebuttons.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3666,12 +3677,13 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = skylatian.threebuttons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
