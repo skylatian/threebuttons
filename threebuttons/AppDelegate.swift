@@ -13,6 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var preferencesWindow: NSWindow?
     var clickDetector: EventTapClickDetector?
     var touchManager: BackgroundTouchManager?
+    var window: NSWindow?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         //setupMenuBarItem()
