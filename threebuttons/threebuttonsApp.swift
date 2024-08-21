@@ -100,7 +100,7 @@ struct AboutView: View {
                     .font(.title)
                 //.padding()
                 
-                Text("Version: v1.0-beta.64")
+                Text("Version: v1.0-beta.68")
                 Text("Developed by Skylatian")
                 
                 HStack(spacing: 0) {  // fix weird spacing between link and text
