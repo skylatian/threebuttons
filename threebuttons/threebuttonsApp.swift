@@ -20,10 +20,11 @@ class PreferencesWindowController: NSWindowController {
         let window = NSWindow(contentRect: contentRect, styleMask: style, backing: backing, defer: false)
         window.center()
         window.isReleasedWhenClosed = false  // Prevents the window from being destroyed
-        window.title = "Preferences"
+        window.title = "threeButtons"
+        //window.level = .normal
         super.init(window: window)
         
-        window.contentView = NSHostingView(rootView: PreferencesView())
+        window.contentView = NSHostingView(rootView: MainPreferencesView())
     }
     
     required init?(coder: NSCoder) {
@@ -36,6 +37,7 @@ class PreferencesWindowController: NSWindowController {
     
     func showPreferences() {
         self.showWindow(nil)
+        self.window?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
     }
 }
@@ -49,9 +51,30 @@ struct MyApp: App {
             Button("Preferences") {
                 PreferencesWindowController.shared.showPreferences()
             }
+            Button("Quit") {
+                NSApplication.shared.terminate(nil)
+            }
         }
     }
 }
+
+struct MainPreferencesView: View {
+    var body: some View {
+        TabView {
+            PreferencesView()
+                .tabItem {
+                    Label("Preferences", systemImage: "gear")
+                }
+            AboutView()
+                .tabItem {
+                    Label("About", systemImage: "info.circle")
+                }
+        }
+        .frame(minHeight: 610)
+        .padding()
+    }
+}
+
 
 struct PreferencesView: View {
     var body: some View {
@@ -59,10 +82,57 @@ struct PreferencesView: View {
             TrackPadView()
                 .background(Color.gray)
                 .aspectRatio(1.6, contentMode: .fit)
-                .padding()
-                .frame(maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
+                .padding(5)
+                .frame(maxWidth: .infinity, minHeight: 250, maxHeight: .infinity)
             SettingsColumnView()
-                .frame(minWidth: 600, minHeight: 265)
+                .frame(minWidth: 500)//, minHeight: 150)
+        }
+    }
+}
+
+struct AboutView: View {
+//    @State private var isHoveringBuyMeACoffee = false  // State for hover tracking
+    var body: some View {
+        VStack(alignment: .leading) {
+            
+            VStack(alignment: .center, spacing: 5) {
+                Text("About threeButtons")
+                    .font(.title)
+                //.padding()
+                
+                Text("Version: 0.0.5")
+                Text("Developed by Skylatian")
+                
+                HStack(spacing: 0) {  // fix weird spacing between link and text
+                    Text("Check out the project on ")
+                    Link("GitHub", destination: URL(string: "https://github.com/skylatian/threebuttons/")!)
+                    Text(" or ")
+                    Link("Sponsor", destination: URL(string: "https://ko-fi.com/skylatian")!)
+                }
+                
+                Text("© 2024")
+                
+            }
+            
+            .padding()
+            //.frame()//maxWidth: .infinity)
+            .background(Color.gray.opacity(0.1)) // Adding a light gray background with slight transparency
+            .cornerRadius(10)  // Apply corner radius to round the corners
+            .padding(.horizontal, 20)  // Additional horizontal padding for the background
+
+//                Link("Sponsor this project", destination: URL(string: "https://ko-fi.com/skylatian")!)
+//                    .padding(5)
+//                    .buttonStyle(.plain)
+//                    .background(isHoveringBuyMeACoffee ? Color.gray : Color.clear) // Color changes on hover
+//                    .cornerRadius(5)
+//                    .onHover { hover in
+//                        withAnimation {
+//                            isHoveringBuyMeACoffee = hover  // Update hover state
+//                        }
+//                    }
+
+        
+
         }
     }
 }
