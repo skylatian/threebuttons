@@ -1,7 +1,7 @@
 # What is this?
 
 ## Welcome to ThreeButtons!
-<img src="./images/touchpad.jpg" width="245" height="164">
+<img src="./images/threebuttons_prefs.png" width="180" height="224">
 
 ThreeButtons is meant to emulate the three physical buttons that you’d find on something like a thinkpad(left, middle, right) in macOS. Why? For me, to make it easier to use Fusion360 with a trackpad when I forget a mouse.
 
@@ -11,7 +11,10 @@ ThreeButtons is meant to emulate the three physical buttons that you’d find on
 
 ### Known issues:
 - Dragging from one zone into another and releasing does not release original click
-- Fusion360 bug where you sometimes need to open and close any design (inlcuding empty designs) to make orbit/pan tools smooth.
+- Fusion360/CAD bug where pan/orbit tools are choppy until all zones are clicked once.
+- Power usage spikes after opening preferences window. Temporary Fix: Open preferences window, change settings, quit/re-open app. Real fix incoming.
+- Touching a zone while you've clicked elsewhere (and then releasing that other click) may cause that key to get stuck
+    - Should be fixable by ignoring clicks in zones if a click already exists elsewhere/**making sure to release one type of click before starting another**
 
 ### Planned Features:
 - Menu Bar item
@@ -19,16 +22,12 @@ ThreeButtons is meant to emulate the three physical buttons that you’d find on
 - ✅ Launch at login
 - ✅ Disable/enable click recognition outside of zone ('Strict Zones')
 - 🚧 ✅ Resizable zones
-- 🚧 Proper preferences window
-- 🚧 Enable/disable certain zones (for example, to just have a large right click zone)
-- Enable/disable two-finger right click overriding zone presence (if you two-finger right click in any zone, toggle it counting as a right click or being overridden by the zones)
+- 🚧 ✅ Proper preferences window
+- ✅ Enable/disable certain zones (for example, to just have a large right-click zone)
+- Enable/disable two-finger right click overriding zone presence (if you two-finger right-click in any zone, toggle it counting as a right-click or being overridden by the zones)
 - Program inclusion/exclusion list
 
 🚧 = in progress
-
-### Issues
-- Touching a zone while you've clicked elsewhere (and then releasing that other click) will cause that key to get stuck
-    - Should be fixable by ignoring clicks in zones if a click already exists elsewhere/**making sure to release one type of click before starting another**
 
 # Installation
 Download a binary from https://github.com/skylatian/threebuttons/releases (coming soon)
