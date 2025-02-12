@@ -1,13 +1,22 @@
-# What is this?
-
-## Welcome to ThreeButtons!
-<img src="../images/threebuttons_prefs.png" width="270" height="336">
+# Welcome to ThreeButtons!
 
 ThreeButtons is meant to emulate the three physical buttons that you’d find on something like a thinkpad(left, middle, right) in macOS. Why? For me, to make it easier to use Fusion360 with a trackpad when I forget a mouse.
+<table class="tg">
+  <tr>
+    <td class="tg-0pky" colspan="2" rowspan="2"><img src="../images/threebuttons_prefs.png"></td>
+    <td class="tg-0pky" colspan="3" rowspan="4"><img src="../images/threebuttons_demo.gif" alt="image" /></td>
+  </tr>
+</table>
+</p>
 
 ### Features:
+- ✅ Menu Bar item
 - ✅ Three distinct zones on the bottom of the trackpad for left, middle, and right click
 - ✅ Dragging while clicking
+- ✅ Preview area
+- ✅ Launch at login
+- ✅ Disable/enable click recognition outside of zone ('Strict Zones')
+- ✅ Enable/disable certain zones (for example, to just have a large right-click zone)
 
 ### Known issues:
 - Dragging from one zone into another and releasing does not release original click
@@ -17,13 +26,8 @@ ThreeButtons is meant to emulate the three physical buttons that you’d find on
     - Should be fixable by ignoring clicks in zones if a click already exists elsewhere/**making sure to release one type of click before starting another**
 
 ### Planned Features:
-- Menu Bar item
-- ✅ Preview area
-- ✅ Launch at login
-- ✅ Disable/enable click recognition outside of zone ('Strict Zones')
 - 🚧 ✅ Resizable zones
 - 🚧 ✅ Proper preferences window
-- ✅ Enable/disable certain zones (for example, to just have a large right-click zone)
 - Enable/disable two-finger right click overriding zone presence (if you two-finger right-click in any zone, toggle it counting as a right-click or being overridden by the zones)
 - Program inclusion/exclusion list
 
@@ -33,7 +37,7 @@ ThreeButtons is meant to emulate the three physical buttons that you’d find on
 Download a binary from https://github.com/skylatian/threebuttons/releases (coming soon)
 Note: I do not have an apple developer account, so the package will be unsigned and you'll have to override the system warning in Preferences -> Privacy and Security
 
-Or, follow development steps below
+Or, follow steps to build below.
 
 ---
 
