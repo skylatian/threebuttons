@@ -1,7 +1,7 @@
 # What is this?
 
 ## Welcome to ThreeButtons!
-<img src="./images/threebuttons_prefs.png" width="180" height="224">
+<img src="../images/threebuttons_prefs.png" width="180" height="224">
 
 ThreeButtons is meant to emulate the three physical buttons that you’d find on something like a thinkpad(left, middle, right) in macOS. Why? For me, to make it easier to use Fusion360 with a trackpad when I forget a mouse.
 
